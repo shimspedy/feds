@@ -2,16 +2,16 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-const port = 8000;
+const port = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/state/:state', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'state.html'));
+    res.sendFile(path.join(__dirname, '../public', 'state.html'));
 });
 
 app.get('/gs/:state/:grade', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'gs.html'));
+    res.sendFile(path.join(__dirname, '../public', 'gs.html'));
 });
 
 app.listen(port, () => {
