@@ -24,5 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 stateTableBody.innerHTML = '<tr><td colspan="11">No data available for this state.</td></tr>';
             }
-        });
+        })
+        .catch(error => console.error('Error fetching data:', error));
 });
