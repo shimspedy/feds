@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gradeState.textContent = `${grade} in ${state}`;
 
     // Fetch GS data for the state and grade
-    fetch('gs-data.json')
+    fetch('/gs-data.json')
         .then(response => response.json())
         .then(data => {
             const stateData = data[state];
@@ -23,5 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 gsTableBody.innerHTML = '<tr><td colspan="2">No data available for this grade.</td></tr>';
             }
-        });
+        })
+        .catch(error => console.error('Error fetching data:', error));
 });

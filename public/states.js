@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let statesData = {};
 
     // Fetch GS data and populate the states list
-    fetch('gs-data.json')
+    fetch('/gs-data.json')
         .then(response => response.json())
         .then(data => {
             statesData = data;

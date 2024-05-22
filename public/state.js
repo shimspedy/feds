@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     stateName.textContent = `GS Information for ${state}`;
 
     // Fetch GS data for the state
-    fetch('gs-data.json')
+    fetch('/gs-data.json')
         .then(response => response.json())
         .then(data => {
             const stateData = data[state];
