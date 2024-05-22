@@ -1,9 +1,15 @@
+# Suggested code may be subject to a license. Learn more: ~LicenseLog:4251772728.
+# Suggested code may be subject to a license. Learn more: ~LicenseLog:1655118908.
+# Suggested code may be subject to a license. Learn more: ~LicenseLog:2123064770.
+
+# Original code with an issue:
 import pandas as pd
 import json
 
 # Load the Excel file
 file_path = '/data/2024-general-schedule-pay-ratesxls.xlsx'
-excel_data = pd.ExcelFile(file_path)
+excel
+_data = pd.ExcelFile(file_path)
 
 # Assuming the relevant data is in the first sheet
 sheet_name = excel_data.sheet_names[0]
@@ -16,7 +22,8 @@ for index, row in df.iterrows():
     state = row['LOCNAME']
     grade = row['GRADE']
     for step in range(1, 11):
-        salary = row[f'ANNUAL{step}']
+        salary = row[f'ANNUAL{
+step}']
         if state not in gs_data:
             gs_data[state] = []
         gs_data[state].append({
@@ -25,6 +32,10 @@ for index, row in df.iterrows():
             'step': step,
             'salary': salary
         })
+
+# Fix: Handle missing values in the 'ANNUAL{step}' columns
+        if pd.isna(salary):
+            salary = 0
 
 json_data = json.dumps(gs_data, indent=4)
 
