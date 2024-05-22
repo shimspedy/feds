@@ -1,24 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const state = urlParams.get('state');
-    const year = urlParams.get('year');
-    const stateYear = document.getElementById('state-year');
+    const grade = urlParams.get('grade');
+    const gradeState = document.getElementById('grade-state');
     const gsTableBody = document.getElementById('gs-table').querySelector('tbody');
 
-    stateYear.textContent = `${state} ${year}`;
+    gradeState.textContent = `${grade} in ${state}`;
 
-    // Fetch GS data for the state and year
-    fetch('./gs-data.json')
+    // Fetch GS data for the state and grade
+    fetch('gs-data.json')
         .then(response => response.json())
         .then(data => {
             const stateData = data[state];
-            const yearData = stateData.filter(entry => entry.year == year);
-            yearData.forEach(entry => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `<td>${entry.grade}</td>
-                                <td>${entry.step}</td>
-                                <td>${entry.salary}</td>`;
-                gsTableBody.appendChild(tr);
-            });
+            if (stateData && stateData[grade]) {
+                const gradeData = stateData[grade];
+                gradeData.forEach(entry => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${entry.step}</td>
+                                    <td>$${entry.salary}</td>`;
+                    gsTableBody.appendChild(tr);
+                });
+            } else {
+                gsTableBody.innerHTML = '<tr><td colspan="2">No data available for this grade.</td></tr>';
+            }
         });
 });

@@ -7,17 +7,22 @@ document.addEventListener('DOMContentLoaded', () => {
     stateName.textContent = `GS Information for ${state}`;
 
     // Fetch GS data for the state
-    fetch('./gs-data.json')
+    fetch('gs-data.json')
         .then(response => response.json())
         .then(data => {
             const stateData = data[state];
-            stateData.forEach(entry => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `<td><a href="gs.html?state=${state}&year=${entry.year}">${entry.year}</a></td>
-                                <td>${entry.grade}</td>
-                                <td>${entry.step}</td>
-                                <td>${entry.salary}</td>`;
-                stateTableBody.appendChild(tr);
-            });
+            if (stateData) {
+                for (const grade in stateData) {
+                    const row = document.createElement('tr');
+                    let rowHTML = `<td><a href="gs.html?state=${state}&grade=${encodeURIComponent(grade)}">${grade}</a></td>`;
+                    stateData[grade].forEach(stepData => {
+                        rowHTML += `<td>${stepData.salary}</td>`;
+                    });
+                    row.innerHTML = rowHTML;
+                    stateTableBody.appendChild(row);
+                }
+            } else {
+                stateTableBody.innerHTML = '<tr><td colspan="11">No data available for this state.</td></tr>';
+            }
         });
 });
