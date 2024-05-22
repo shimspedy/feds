@@ -1,14 +1,14 @@
 {
-    "name": "netlify-express-app",
-    "version": "1.0.0",
-    "description": "A Netlify app using Express for server-side rendering",
-    "main": "server/server.js",
-    "scripts": {
-      "build": "npm install",
-      "start": "node server/server.js"
-    },
-    "dependencies": {
-      "express": "^4.17.1"
-    }
+  "name": "netlify-express-app",
+  "version": "1.0.0",
+  "description": "A Netlify app using Express for server-side rendering",
+  "main": "server/server.js",
+  "scripts": {
+    "build": "npm install && npm run generate-sitemap",
+    "generate-sitemap": "node generate-sitemap.js",
+    "start": "node server/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
-  
+}
