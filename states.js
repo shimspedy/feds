@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         states.forEach(state => {
             const li = document.createElement('li');
             const a = document.createElement('a');
-            a.href = `state.html?state=${state}`;
+            a.href = `state/${state}`;
             a.textContent = state;
             li.appendChild(a);
             statesList.appendChild(li);

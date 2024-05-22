@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const state = urlParams.get('state');
+    const path = window.location.pathname.split('/');
+    const state = path[path.length - 1];
     const stateName = document.getElementById('state-name');
     const stateTableBody = document.getElementById('state-table').querySelector('tbody');
 
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (stateData) {
                 for (const grade in stateData) {
                     const row = document.createElement('tr');
-                    let rowHTML = `<td><a href="gs.html?state=${state}&grade=${encodeURIComponent(grade)}">${grade}</a></td>`;
+                    let rowHTML = `<td><a href="../gs/${state}/${encodeURIComponent(grade)}">${grade}</a></td>`;
                     stateData[grade].forEach(stepData => {
                         rowHTML += `<td>${stepData.salary}</td>`;
                     });

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const state = urlParams.get('state');
-    const grade = urlParams.get('grade');
+    const path = window.location.pathname.split('/');
+    const state = path[path.length - 2];
+    const grade = decodeURIComponent(path[path.length - 1]);
     const gradeState = document.getElementById('grade-state');
     const gsTableBody = document.getElementById('gs-table').querySelector('tbody');
 
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 gradeData.forEach(entry => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `<td>${entry.step}</td>
-                                    <td>$${entry.salary}</td>`;
+                                    <td>${entry.salary}</td>`;
                     gsTableBody.appendChild(tr);
                 });
             } else {
