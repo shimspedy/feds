@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+
     const stateMap = {
         "AL": "Albany-Schenectady, NY-MA",
         "AQ": "Albuquerque-Santa Fe-Las Vegas, NM",
@@ -60,23 +60,51 @@ document.addEventListener('DOMContentLoaded', () => {
         "HI": "State of Hawaii"
     };
 
-    function replaceStateAbbreviations() {
-        const stateElements = document.querySelectorAll('.state-abbr');
 
+    function replaceStateAbbreviations() {
+        const path = window.location.pathname.split('/');
+        const isGsPage = path.includes('gs'); // Check if the URL includes 'gs' indicating it's a GS page
+        
+        const stateElements = document.querySelectorAll('.state-abbr');
+        
         stateElements.forEach(element => {
             const abbr = element.textContent.trim();
             if (stateMap[abbr]) {
-                const fullName = `GS Information for ${stateMap[abbr]}`;
+                const fullName = stateMap[abbr];
                 element.textContent = fullName;
-                  // Update the title of the page
-                document.title = `GS Information for ${stateMap[abbr]}`;
-                // Update the title of the page
-                if (element.tagName === 'H1') {
-                    document.title = fullName;
+                
+                if (isGsPage) {
+                    // Fetch GS data and update the title for GS page
+                    const state = path[path.length - 2];
+                    const gradeFormatted = decodeURIComponent(path[path.length - 1]);
+                    const grade = gradeFormatted.replace(/GS/g, 'GS');  // Add space after GS
+    
+                    fetch('/gs-data.json')
+                        .then(response => response.json())
+                        .then(data => {
+                            const stateData = data[state];
+                            if (stateData && stateData[grade]) {
+                                document.title = `${grade} Federal Employee Salaries in ${fullName}`;
+                                if (element.tagName === 'H1') {
+                                    element.textContent = `${grade} Federal Employee Salaries in ${fullName}`;
+                                }
+                            } else {
+                                document.title = `Federal Pay in ${fullName}`;
+                                if (element.tagName === 'H1') {
+                                    element.textContent = `Federal Employee Salaries in ${fullName}`;
+                                }
+                            }
+                        })
+                        .catch(error => console.error('Error fetching data:', error));
+                } else {
+                    // Update the title and H1 for State page
+                    document.title = `Federal Employee Salaries in ${fullName}`;
+                    if (element.tagName === 'H1') {
+                        element.textContent = `Federal Employee Salaries in ${fullName}`;
+                    }
                 }
             }
         });
     }
-
-    replaceStateAbbreviations();
-});
+    
+    document.addEventListener('DOMContentLoaded', replaceStateAbbreviations);

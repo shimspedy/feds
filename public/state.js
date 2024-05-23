@@ -4,8 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const stateName = document.getElementById('state-name');
     stateName.classList.add('state-abbr');
     stateName.textContent = state;
+
+
     const stateTableBody = document.getElementById('state-table').querySelector('tbody');
-    
+
     // Fetch GS data for the state
     fetch('/gs-data.json')
         .then(response => response.json())
@@ -16,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const row = document.createElement('tr');
                     let rowHTML = `<td><a href="../gs/${state}/${encodeURIComponent(grade)}">${grade}</a></td>`;
                     stateData[grade].forEach(stepData => {
-                        rowHTML += `<td>$ ${stepData.salary}</td>`;
+                        rowHTML += `<td>${stepData.annual_salary.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>`;
                     });
                     row.innerHTML = rowHTML;
                     stateTableBody.appendChild(row);

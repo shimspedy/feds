@@ -1,33 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
     const path = window.location.pathname.split('/');
-    const state = path[path.length - 2];
-    const grade = decodeURIComponent(path[path.length - 1]);
-    const gradeState = document.getElementById('grade-state');
-    gradeState.classList.add('state-abbr');
-    gradeState.textContent = grade;
-    const stateAbbr = document.getElementById('state-abbr');
-    stateAbbr.classList.add('state-abbr');
-    stateAbbr.textContent = state;
-  
+    const city = path[path.length - 2];
+    const gradeFormatted = decodeURIComponent(path[path.length - 1]);
+    const grade = gradeFormatted.replace(/GS/g, 'GS');  // no space after GS
 
-    
+
+    const stateName = document.getElementById('state-name');
+    stateName.classList.add('locality-code');
+    stateName.classList.add('state-abbr');
+    stateName.textContent = city;
+
+
     const gsTableBody = document.getElementById('gs-table').querySelector('tbody');
 
     // Fetch GS data for the state and grade
     fetch('/gs-data.json')
         .then(response => response.json())
         .then(data => {
-            const stateData = data[state];
-            if (stateData && stateData[grade]) {
-                const gradeData = stateData[grade];
+            const cityData = data[city];
+            if (cityData && cityData[grade]) {
+                const gradeData = cityData[grade];
                 gradeData.forEach(entry => {
                     const tr = document.createElement('tr');
-                    tr.innerHTML = `<td>${entry.step}</td>
-                                    <td>$ ${entry.salary}</td>`;
+                    tr.innerHTML = `<td>Step ${entry.step}</td>
+                                    <td>${entry.hourly_salary.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                                    <td>${entry.overtime_salary.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                                    <td>${entry.annual_salary.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>`;
                     gsTableBody.appendChild(tr);
                 });
             } else {
-                gsTableBody.innerHTML = '<tr><td colspan="2">No data available for this grade.</td></tr>';
+                gsTableBody.innerHTML = '<tr><td colspan="4">No data available for this grade.</td></tr>';
             }
         })
         .catch(error => console.error('Error fetching data:', error));
