@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Define the base URL for your site
-const baseUrl = 'https://fedspay.netlify.app';
+const baseUrl = 'https://fedspay.com';
 
 // Load the GS data
 const dataFilePath = path.join(__dirname, 'public', 'gs-data.json');
