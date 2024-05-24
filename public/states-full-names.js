@@ -116,3 +116,4 @@
         metaDescription.content = description;
     }
     document.addEventListener('DOMContentLoaded', replaceStateAbbreviations);
+    document.addEventListener('DOMContentLoaded', updateMetaDescription);
