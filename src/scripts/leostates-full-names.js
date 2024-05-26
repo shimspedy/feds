@@ -77,7 +77,7 @@ function replaceStateAbbreviations() {
                 const gradeFormatted = decodeURIComponent(path[path.length - 1]);
                 const grade = gradeFormatted.replace(/LEO/g, 'LEO');  // Add space after LEO
 
-                fetch('/leo-data.json')
+                fetch('/data/leo-data.json')
                     .then(response => response.json())
                     .then(data => {
                         const stateData = data[state];

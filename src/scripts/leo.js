@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const leoTableBody = document.getElementById('leo-table').querySelector('tbody');
 
     // Fetch leo data for the state and grade
-    fetch('/leo-data.json')
+    fetch('/data/leo-data.json')
         .then(response => response.json())
         .then(data => {
             const cityData = data[city];

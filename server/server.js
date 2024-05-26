@@ -9,10 +9,10 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.get('/state/:state', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'state.html'));
 });
+
 app.get('/:leostate', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'leostate.html'));
 });
-
 
 app.get('/leopay/:state', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'leopay.html'));

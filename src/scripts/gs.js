@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const gsTableBody = document.getElementById('gs-table').querySelector('tbody');
 
     // Fetch GS data for the state and grade
-    fetch('/gs-data.json')
+    fetch('/data/gs-data.json')
         .then(response => response.json())
         .then(data => {
             const cityData = data[city];

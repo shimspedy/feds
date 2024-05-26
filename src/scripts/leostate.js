@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let statesData = {};
 
     // Fetch LEO data and populate the states list
-    fetch('/leo-data.json')
+    fetch('/data/leo-data.json')
         .then(response => response.json())
         .then(data => {
             statesData = data;

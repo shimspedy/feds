@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stateTableBody = document.getElementById('state-table').querySelector('tbody');
 
     // Fetch leo data for the state
-    fetch('/leo-data.json')
+    fetch('/data/leo-data.json')
         .then(response => response.json())
         .then(data => {
             const stateData = data[state];

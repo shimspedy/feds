@@ -8,31 +8,29 @@
     <meta name="keywords" content="Law Enforcement Officer Salaries, LEO Grades, State Salaries, Federal Pay Scales, Locality Pay Areas">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="/styles.css">
-     <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
 </head>
 <body>
     <div id="menu-placeholder"></div>
-    <h1 id="state-name" class="state-abbr"></h1>
-    <table  class="highlight responsive-table" id="state-table">
-        <thead>
-            <tr>
-                <th>LEO Grade</th>
-                <th>Step 1</th>
-                <th>Step 2</th>
-                <th>Step 3</th>
-                <th>Step 4</th>
-                <th>Step 5</th>
-                <th>Step 6</th>
-                <th>Step 7</th>
-                <th>Step 8</th>
-                <th>Step 9</th>
-                <th>Step 10</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Dynamic content -->
-        </tbody>
-    </table>
+    <div class="container">
+        <h1 class="center-align">Select a State</h1>
+        <div class="input-field">
+            <input id="search-bar" type="text" class="validate">
+            <label for="search-bar">Search for a state...</label>
+        </div>
+        <table class="highlight responsive-table">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Abbreviation</th>
+                </tr>
+            </thead>
+            <tbody id="states-list">
+                <!-- Dynamic content -->
+            </tbody>
+        </table>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./bundle.js"></script>
 </body>
