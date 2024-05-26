@@ -8,6 +8,21 @@
   status = 200
 
 [[redirects]]
+  from = "/leostate/*"
+  to = "/leostate"
+  status = 200
+
+[[redirects]]
+  from = "/leopay/*"
+  to = "/leopay"
+  status = 200
+
+[[redirects]]
   from = "/gs/*"
   to = "/gs"
+  status = 200
+
+[[redirects]]
+  from = "/leo/*"
+  to = "/leo"
   status = 200
