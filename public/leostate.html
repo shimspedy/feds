@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law Enforcement Officer Salaries</title>
+    <meta name="description" content="Discover detailed Law Enforcement Officer salaries by state. Navigate through LEO grades and understand pay scales across different localities.">
+    <meta name="keywords" content="Law Enforcement Officer Salaries, LEO Grades, State Salaries, Federal Pay Scales, Locality Pay Areas">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+    <div id="menu-placeholder"></div>
+    <div class="container">
+        <h1 class="center-align">Select a State</h1>
+        <div class="input-field">
+            <input id="search-bar" type="text" class="validate">
+            <label for="search-bar">Search for a state...</label>
+        </div>
+        <table class="highlight responsive-table">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Abbreviation</th>
+                </tr>
+            </thead>
+            <tbody id="states-list">
+                <!-- Dynamic content -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="/menu.js"></script>
+    <script src="/leostate.js"></script>
+</body>
+</html>
