@@ -8,15 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const stateTableBody = document.getElementById('state-table').querySelector('tbody');
 
-    // Fetch leo data for the state
-    fetch('/data/leo-data.json')
+    // Fetch GS data for the state
+    fetch('/gs-data.json')
         .then(response => response.json())
         .then(data => {
             const stateData = data[state];
             if (stateData) {
                 for (const grade in stateData) {
                     const row = document.createElement('tr');
-                    let rowHTML = `<td><a href="../leo/${state}/${encodeURIComponent(grade)}">${grade}</a></td>`;
+                    let rowHTML = `<td><a href="../gs/${state}/${encodeURIComponent(grade)}">${grade}</a></td>`;
                     stateData[grade].forEach(stepData => {
                         rowHTML += `<td>${stepData.annual_salary.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>`;
                     });

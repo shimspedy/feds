@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let statesData = {};
 
-    // Fetch LEO data and populate the states list
-    fetch('/data/leo-data.json')
+    // Fetch GS data and populate the states list
+    fetch('/gs-data.json')
         .then(response => response.json())
         .then(data => {
             statesData = data;
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         states.forEach(state => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td><a href="/leopay/${state}" class="state-abbr">${stateMap[state]}</a></td>
+                <td><a href="/state/${state}" class="state-abbr">${stateMap[state]}</a></td>
                 <td>${state}</td>
             `;
             statesList.appendChild(row);
