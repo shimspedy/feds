@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stateTableBody = document.getElementById('state-table').querySelector('tbody');
 
     // Fetch GS data for the state
-    fetch('/gs-data.json')
+    fetch('/data/gs-data.json')
         .then(response => response.json())
         .then(data => {
             const stateData = data[state];

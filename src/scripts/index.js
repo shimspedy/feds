@@ -7,5 +7,3 @@ import './leo.js';
 import './state.js';
 import './leostate.js';
 import './leopay.js';
-import '../../scripts/generate-sitemap.js';
-import '../styles/styles.css';
