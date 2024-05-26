@@ -61,7 +61,7 @@ const stateMap = {
 
 function replaceStateAbbreviations() {
     const path = window.location.pathname.split('/');
-    const isGsPage = path.includes('gs'); // Check if the URL includes 'gs' indicating it's a GS page
+    const isLeoPage = path.includes('leo'); // Check if the URL includes 'leo' indicating it's a LEO page
     
     const stateElements = document.querySelectorAll('.state-abbr');
     
@@ -71,41 +71,41 @@ function replaceStateAbbreviations() {
             const fullName = stateMap[abbr];
             element.textContent = fullName;
             
-            if (isGsPage) {
-                // Fetch GS data and update the title for GS page
+            if (isLeoPage) {
+                // Fetch LEO data and update the title for LEO page
                 const state = path[path.length - 2];
                 const gradeFormatted = decodeURIComponent(path[path.length - 1]);
-                const grade = gradeFormatted.replace(/GS/g, 'GS');  // Add space after GS
+                const grade = gradeFormatted.replace(/LEO/g, 'LEO');  // Add space after LEO
 
-                fetch('/data/gs-data.json')
+                fetch('/leo-data.json')
                     .then(response => response.json())
                     .then(data => {
                         const stateData = data[state];
                         if (stateData && stateData[grade]) {
-                            const pageTitle = `${grade} Federal Employee Salaries in ${fullName}`;
+                            const pageTitle = `${grade} Law Enforcement and Police Officer Salary Information in ${fullName}`;
                             document.title = pageTitle;
                             if (element.tagName === 'H1') {
                                 element.textContent = pageTitle;
                             }
-                            updateMetaDescription(`${pageTitle} - Detailed information on salaries, hourly rates, and overtime rates for federal employees.`);
+                            updateMetaDescription(`${pageTitle} -Detailed information on salaries, hourly rates, and overtime rates for Law Enforcement Officers and police officers. Learn how much cops make and explore comprehensive salary data.`);
                         } else {
-                            const pageTitle = `Federal Employee Salaries in ${fullName}`;
+                            const pageTitle = `Law Enforcement and Police Officer Salary Information in ${fullName}`;
                             document.title = pageTitle;
                             if (element.tagName === 'H1') {
                                 element.textContent = pageTitle;
                             }
-                            updateMetaDescription(`${pageTitle} - Detailed information on salaries, hourly rates, and overtime rates for federal employees.`);
+                            updateMetaDescription(`${pageTitle} - Detailed information on salaries, hourly rates, and overtime rates for Law Enforcement Officers and police officers. Learn how much cops make and explore comprehensive salary data.`);
                         }
                     })
                     .catch(error => console.error('Error fetching data:', error));
             } else {
                 // Update the title and H1 for State page
-                const pageTitle = `Federal Employee Salaries in ${fullName}`;
+                const pageTitle = `Law Enforcement and Police Officer Salary Information in ${fullName}`;
                 document.title = pageTitle;
                 if (element.tagName === 'H1') {
                     element.textContent = pageTitle;
                 }
-                updateMetaDescription(`${pageTitle} - Explore detailed salary information for federal employees by state.`);
+                updateMetaDescription(`${pageTitle} - Explore detailed salary information forLaw Enforcement and Police Officer Salary Information by state.`);
             }
         }
     });

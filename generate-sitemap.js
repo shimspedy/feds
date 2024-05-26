@@ -5,11 +5,11 @@ const path = require('path');
 const baseUrl = 'https://fedspay.com';
 
 // Load the GS data
-const gsDataFilePath = path.join(__dirname, '..', 'public', 'data', 'gs-data.json');
+const gsDataFilePath = path.join(__dirname, 'public', 'gs-data.json');
 const gsData = JSON.parse(fs.readFileSync(gsDataFilePath, 'utf8'));
 
 // Load the LEO data
-const leoDataFilePath = path.join(__dirname, '..', 'public', 'data', 'leo-data.json');
+const leoDataFilePath = path.join(__dirname, 'public', 'leo-data.json');
 const leoData = JSON.parse(fs.readFileSync(leoDataFilePath, 'utf8'));
 
 // Generate the sitemap
@@ -51,7 +51,7 @@ for (const state in leoData) {
 sitemap += `</urlset>`;
 
 // Save the sitemap to a file
-const sitemapFilePath = path.join(__dirname, '..', 'public', 'sitemap.xml');
+const sitemapFilePath = path.join(__dirname, 'public', 'sitemap.xml');
 fs.writeFileSync(sitemapFilePath, sitemap);
 
 console.log('Sitemap generated successfully.');
