@@ -77,7 +77,7 @@ function replaceStateAbbreviations() {
                 const gradeFormatted = decodeURIComponent(path[path.length - 1]);
                 const grade = gradeFormatted.replace(/GS/g, 'GS');  // Add space after GS
 
-                fetch('/gs-data.json')
+                fetch('/data/gs-data.json')
                     .then(response => response.json())
                     .then(data => {
                         const stateData = data[state];
