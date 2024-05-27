@@ -6,28 +6,28 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware to add canonical link tag
-function addCanonicalLinkTag(req, res, next) {
-    const originalSendFile = res.sendFile;
-    res.sendFile = function (filePath) {
-        fs.readFile(filePath, 'utf8', (err, data) => {
-            if (err) {
-                return res.status(500).send('Server Error');
-            }
+// function addCanonicalLinkTag(req, res, next) {
+//     const originalSendFile = res.sendFile;
+//     res.sendFile = function (filePath) {
+//         fs.readFile(filePath, 'utf8', (err, data) => {
+//             if (err) {
+//                 return res.status(500).send('Server Error');
+//             }
 
-            const canonicalUrl = `https://www.fedpay.com${req.originalUrl}`;
-            const canonicalLinkTag = `<link rel="canonical" href="${canonicalUrl}">`;
+//             const canonicalUrl = `https://www.fedpay.com${req.originalUrl}`;
+//             const canonicalLinkTag = `<link rel="canonical" href="${canonicalUrl}">`;
 
-            const modifiedHtml = data.replace('</head>', `${canonicalLinkTag}</head>`);
-            res.send(modifiedHtml);
-        });
-    };
-    next();
-}
+//             const modifiedHtml = data.replace('</head>', `${canonicalLinkTag}</head>`);
+//             res.send(modifiedHtml);
+//         });
+//     };
+//     next();
+// }
 
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Apply the middleware
-app.use(addCanonicalLinkTag);
+// app.use(addCanonicalLinkTag);
 
 app.get('/state/:state', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'state.html'));
