@@ -7,7 +7,7 @@ import json
 print("Current working directory:", os.getcwd())
 
 # Load the Excel file
-file_path = './public/2024-general-schedule-pay-ratesxls.xlsx'
+file_path = './public/2025-general-schedule-pay-rates.xlsx'
 try:
     excel_data = pd.ExcelFile(file_path)
 except FileNotFoundError:
