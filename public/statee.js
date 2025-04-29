@@ -1,3 +1,7 @@
+// BACKUP FILE - NOT IN USE
+// This is a backup of the original states list implementation that used state_pages.json
+// The active implementation is now in states.js which uses gs-data.json
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM fully loaded and parsed');
 

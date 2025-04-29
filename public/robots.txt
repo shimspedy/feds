@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Sitemap: https://fedspay.com/sitemap.xml
+
+# Disallow crawling of non-public URLs
+Disallow: /*.json$

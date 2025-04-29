@@ -1,9 +1,10 @@
-General styling
+/* General styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    line-height: 1.6;
 }
 
 nav {
@@ -100,6 +101,72 @@ tbody td {
     text-align: center;
 }
 
+/* Footer styling */
+.page-footer {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 30px;
+}
+
+.page-footer p {
+    margin: 0;
+}
+
+/* SEO helper styles */
+.flow-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+#about-section {
+    padding: 30px 0;
+    margin: 30px 0;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#about-section h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#about-section ul.browser-default {
+    margin-left: 20px;
+    list-style-type: disc;
+}
+
+#about-section ul.browser-default li {
+    display: list-item;
+    margin: 10px 0;
+}
+
+/* Accessibility improvements */
+a:focus, button:focus, input:focus {
+    outline: 2px solid #007bff;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Responsive images for SEO */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     table {
@@ -109,6 +176,18 @@ tbody td {
     li {
         display: block;
         margin: 5px 0;
+    }
+    
+    .flow-text {
+        font-size: 1.1rem;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
     }
 }
 

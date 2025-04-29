@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Insert the canonical link tag
-    const canonicalUrl = `https://www.afrixi.com${window.location.pathname}`;
+    const canonicalUrl = `https://fedspay.com${window.location.pathname}`;
     const linkElement = document.createElement('link');
     linkElement.setAttribute('rel', 'canonical');
     linkElement.setAttribute('href', canonicalUrl);

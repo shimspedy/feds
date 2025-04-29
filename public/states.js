@@ -74,23 +74,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to display the states
     function displayStates(states) {
+        if (!statesList) return;
+        
         statesList.innerHTML = '';
+        const isList = statesList.tagName === 'UL';
+        
         states.forEach(state => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><a href="/state/${state}" class="state-abbr">${stateMap[state]}</a></td>
-                <td>${state}</td>
-            `;
-            statesList.appendChild(row);
+            if (isList) {
+                // Create list items for UL element
+                const listItem = document.createElement('li');
+                listItem.classList.add('collection-item');
+                listItem.innerHTML = `<a href="/state/${state}" class="state-abbr">${stateMap[state]}</a> <span class="state-code">(${state})</span>`;
+                statesList.appendChild(listItem);
+            } else {
+                // Create rows for TABLE element
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><a href="/state/${state}" class="state-abbr">${stateMap[state]}</a></td>
+                    <td>${state}</td>
+                `;
+                statesList.appendChild(row);
+            }
         });
     }
 
     // Event listener for search bar input
-    searchBar.addEventListener('input', (e) => {
-        const searchString = e.target.value.toLowerCase();
-        const filteredStates = Object.keys(stateMap).filter(state => stateMap[state].toLowerCase().includes(searchString));
-        displayStates(filteredStates);
-    });
+    if (searchBar) {
+        searchBar.addEventListener('input', (e) => {
+            const searchString = e.target.value.toLowerCase();
+            const filteredStates = Object.keys(stateMap).filter(state => 
+                stateMap[state].toLowerCase().includes(searchString) || 
+                state.toLowerCase().includes(searchString)
+            );
+            displayStates(filteredStates);
+        });
+    }
 
     // Replace state abbreviations with full names
     function replaceStateAbbreviations() {
@@ -103,6 +121,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    document.addEventListener('DOMContentLoaded', replaceStateAbbreviations);
 });

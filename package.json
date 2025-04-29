@@ -1,14 +1,19 @@
 {
-  "name": "netlify-express-app",
+  "name": "federal-employee-salaries",
   "version": "1.0.0",
-  "description": "A Netlify app using Express for server-side rendering",
+  "description": "A website displaying federal employee salaries including GS and LEO pay scales by state and locality",
   "main": "server/server.js",
   "scripts": {
     "build": "npm install && npm run generate-sitemap",
     "generate-sitemap": "node generate-sitemap.js",
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js",
+    "clean": "rm -rf node_modules && npm install"
   },
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }
