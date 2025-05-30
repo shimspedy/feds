@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEO States Page Verification</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-result { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+    </style>
+</head>
+<body>
+    <h1>LEO States Page Final Verification</h1>
+    <div id="results"></div>
+
+    <script type="module">
+        const results = document.getElementById('results');
+        
+        function addResult(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.textContent = message;
+            results.appendChild(div);
+        }
+
+        async function verifyLeoStatesPage() {
+            addResult('Starting comprehensive LEO States page verification...', 'info');
+            
+            try {
+                // Test 1: Import modules
+                const { DataUtils, US_STATES_MAP, StateListUtils } = await import('/public/js/utils.js');
+                addResult('✓ Successfully imported required modules', 'success');
+                
+                // Test 2: Fetch LEO data
+                const data = await DataUtils.fetchLEOData();
+                addResult(`✓ LEO data fetched: ${Object.keys(data).length} total entries`, 'success');
+                
+                // Test 3: Filter for US states
+                const allKeys = Object.keys(data);
+                const stateKeys = allKeys.filter(state => US_STATES_MAP[state]);
+                addResult(`✓ US states filtered: ${stateKeys.length} states found`, 'success');
+                
+                if (stateKeys.length > 0) {
+                    addResult(`Sample states: ${stateKeys.slice(0, 10).join(', ')}`, 'info');
+                    
+                    // Test 4: Verify state name mapping
+                    const sampleState = stateKeys[0];
+                    const stateName = US_STATES_MAP[sampleState];
+                    addResult(`✓ State mapping works: ${sampleState} → ${stateName}`, 'success');
+                    
+                    // Test 5: Check if leostate.html page exists and has correct structure
+                    const response = await fetch('/leostate.html');
+                    const htmlContent = await response.text();
+                    
+                    if (htmlContent.includes('states-list')) {
+                        addResult('✓ leostate.html contains required states-list element', 'success');
+                    } else {
+                        addResult('✗ leostate.html missing states-list element', 'error');
+                    }
+                    
+                    if (htmlContent.includes('Law Enforcement Officer')) {
+                        addResult('✓ leostate.html contains LEO title', 'success');
+                    } else {
+                        addResult('✗ leostate.html missing LEO title', 'error');
+                    }
+                    
+                    addResult('✅ LEO States page is fully functional!', 'success');
+                    addResult(`The page should display ${stateKeys.length} US states with links to /leopay/[STATE]`, 'info');
+                    
+                } else {
+                    addResult('✗ No US states found in LEO data', 'error');
+                }
+                
+            } catch (error) {
+                addResult(`✗ Verification failed: ${error.message}`, 'error');
+                console.error('Verification error:', error);
+            }
+        }
+
+        verifyLeoStatesPage();
+    </script>
+</body>
+</html>

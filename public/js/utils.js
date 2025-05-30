@@ -93,6 +93,63 @@ export const STATE_MAP = {
 };
 
 /**
+ * US State abbreviations to full state names mapping
+ */
+export const US_STATES_MAP = {
+    "AL": "Alabama",
+    "AK": "Alaska", 
+    "AZ": "Arizona",
+    "AR": "Arkansas",
+    "AS": "American Samoa",
+    "CA": "California",
+    "CO": "Colorado",
+    "CT": "Connecticut",
+    "DE": "Delaware",
+    "FL": "Florida",
+    "GA": "Georgia",
+    "HI": "Hawaii",
+    "ID": "Idaho",
+    "IL": "Illinois",
+    "IN": "Indiana",
+    "IA": "Iowa",
+    "KS": "Kansas",
+    "KY": "Kentucky",
+    "LA": "Louisiana",
+    "ME": "Maine",
+    "MD": "Maryland",
+    "MA": "Massachusetts",
+    "MI": "Michigan",
+    "MN": "Minnesota",
+    "MS": "Mississippi",
+    "MO": "Missouri",
+    "MT": "Montana",
+    "NE": "Nebraska",
+    "NV": "Nevada",
+    "NH": "New Hampshire",
+    "NJ": "New Jersey",
+    "NM": "New Mexico",
+    "NY": "New York",
+    "NC": "North Carolina",
+    "ND": "North Dakota",
+    "OH": "Ohio",
+    "OK": "Oklahoma",
+    "OR": "Oregon",
+    "PA": "Pennsylvania",
+    "RI": "Rhode Island",
+    "SC": "South Carolina",
+    "SD": "South Dakota",
+    "TN": "Tennessee",
+    "TX": "Texas",
+    "UT": "Utah",
+    "VT": "Vermont",
+    "VA": "Virginia",
+    "WA": "Washington",
+    "WV": "West Virginia",
+    "WI": "Wisconsin",
+    "WY": "Wyoming"
+};
+
+/**
  * Utility class for common operations
  */
 export class Utils {
@@ -487,7 +544,7 @@ export class StateListUtils {
         const isTable = container.tagName === 'TABLE' || container.tagName === 'TBODY';
         
         states.forEach(state => {
-            const fullName = STATE_MAP[state] || state;
+            const fullName = US_STATES_MAP[state] || STATE_MAP[state] || state;
             const linkUrl = `${baseUrl}/${state}`;
             
             if (isList) {

@@ -3,7 +3,7 @@
  * This module provides a unified interface for managing different page types
  */
 
-import { CONFIG, STATE_MAP, Utils, SEOUtils, DataUtils, DOMUtils, StateListUtils } from './utils.js';
+import { CONFIG, STATE_MAP, US_STATES_MAP, Utils, SEOUtils, DataUtils, DOMUtils, StateListUtils } from './utils.js';
 
 /**
  * Base class for all page managers
@@ -336,7 +336,7 @@ export class LeoStatesListPage extends BasePage {
 
         try {
             const data = await DataUtils.fetchLEOData();
-            const availableStates = Object.keys(data).filter(state => STATE_MAP[state]);
+            const availableStates = Object.keys(data).filter(state => US_STATES_MAP[state]);
 
             if (statesList) {
                 StateListUtils.displayStates(statesList, availableStates, '/leopay', 'leopay');
