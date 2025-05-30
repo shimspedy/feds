@@ -90,6 +90,27 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
+// Handle JS module imports for nested routes
+app.get('/state/js/*', (req, res) => {
+    const jsPath = req.path.replace('/state/js/', '/js/');
+    res.sendFile(path.join(__dirname, '../public', jsPath));
+});
+
+app.get('/gs/*/js/*', (req, res) => {
+    const jsPath = req.path.split('/js/')[1];
+    res.sendFile(path.join(__dirname, '../public', 'js', jsPath));
+});
+
+app.get('/leo/*/js/*', (req, res) => {
+    const jsPath = req.path.split('/js/')[1];
+    res.sendFile(path.join(__dirname, '../public', 'js', jsPath));
+});
+
+app.get('/leopay/*/js/*', (req, res) => {
+    const jsPath = req.path.split('/js/')[1];
+    res.sendFile(path.join(__dirname, '../public', 'js', jsPath));
+});
+
 // Catch-all handler for undefined routes
 app.use((req, res) => {
     console.log(`404 error for: ${req.originalUrl}`);

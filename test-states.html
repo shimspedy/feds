@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test States</title>
+</head>
+<body>
+    <div id="states-grid"></div>
+    <script type="module">
+        import { StatesListPage } from './public/js/page-manager.js';
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('DOM loaded, testing StatesListPage...');
+            try {
+                const page = new StatesListPage();
+                await page.init();
+                console.log('StatesListPage initialized successfully');
+            } catch (error) {
+                console.error('Error initializing StatesListPage:', error);
+            }
+        });
+    </script>
+</body>
+</html>
