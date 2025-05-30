@@ -1,0 +1,102 @@
+{
+  "site": {
+    "name": "Federal Employee Salary Information",
+    "domain": "fedspay.com",
+    "baseUrl": "https://fedspay.com",
+    "description": "Comprehensive federal employee salary data including GS grades and LEO pay scales.",
+    "keywords": ["Federal Employee Salaries", "GS Grades", "LEO Pay", "Government Salaries", "Pay Scales"],
+    "lastUpdated": "May 2025",
+    "payYear": "2025"
+  },
+  "api": {
+    "endpoints": {
+      "gsData": "/gs-data.json",
+      "leoData": "/leo-data.json",
+      "statePages": "/state_pages.json",
+      "stateAbbreviations": "/state_abbreviations.json"
+    },
+    "timeout": 10000,
+    "retries": 3
+  },
+  "seo": {
+    "defaultTitle": "Federal Employee Salary Information",
+    "titleTemplate": "{title} | Federal Employee Salaries",
+    "defaultDescription": "Comprehensive federal employee salary data including GS grades and LEO pay scales.",
+    "defaultKeywords": "Federal Employee Salaries, GS Grades, LEO Pay, Government Salaries",
+    "openGraph": {
+      "type": "website",
+      "locale": "en_US",
+      "siteName": "Federal Employee Salary Information"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "site": "@fedspay"
+    }
+  },
+  "ui": {
+    "theme": {
+      "primaryColor": "#1976d2",
+      "secondaryColor": "#424242",
+      "accentColor": "#ff5722"
+    },
+    "layout": {
+      "containerMaxWidth": "1200px",
+      "headerHeight": "64px",
+      "footerHeight": "80px"
+    },
+    "responsive": {
+      "mobile": "600px",
+      "tablet": "960px",
+      "desktop": "1200px"
+    }
+  },
+  "features": {
+    "search": {
+      "enabled": true,
+      "debounceDelay": 300,
+      "minSearchLength": 1
+    },
+    "analytics": {
+      "enabled": false,
+      "trackingId": ""
+    },
+    "serviceWorker": {
+      "enabled": false,
+      "cacheName": "fedspay-v1"
+    }
+  },
+  "content": {
+    "payTypes": {
+      "gs": {
+        "name": "General Schedule",
+        "fullName": "Federal Employee",
+        "description": "General Schedule (GS) pay scales for federal employees",
+        "urlPrefix": "/gs",
+        "stateUrlPrefix": "/state"
+      },
+      "leo": {
+        "name": "Law Enforcement Officer",
+        "fullName": "Law Enforcement Officer", 
+        "description": "Law Enforcement Officer (LEO) pay scales for federal law enforcement",
+        "urlPrefix": "/leo",
+        "stateUrlPrefix": "/leopay"
+      }
+    },
+    "tableColumns": {
+      "gs": ["Step", "Hourly Salary", "Overtime Salary", "Annual Salary"],
+      "leo": ["Step", "Hourly Rate", "Overtime Rate", "Annual Salary"],
+      "overview": ["Grade", "Step 1", "Step 2", "Step 3", "Step 4", "Step 5", "Step 6", "Step 7", "Step 8", "Step 9", "Step 10"]
+    }
+  },
+  "performance": {
+    "enableCaching": true,
+    "cacheTimeout": 3600000,
+    "lazyLoading": true,
+    "compressionEnabled": true
+  },
+  "development": {
+    "debugMode": false,
+    "logLevel": "warn",
+    "hotReload": false
+  }
+}

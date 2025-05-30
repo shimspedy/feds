@@ -1,8 +1,92 @@
-<nav>
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/state/RUS">GS Pay Scale</a></li>
-        <li><a href="/leostate">LEO Locality Pay</a></li>
-        <li><a href="/leopay/RUS">LEO Base Pay</a></li>
-    </ul>
-</nav>
+<!-- Standard Header Component for FedsPay.com -->
+<header class="site-header">
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+    <nav class="navbar-fixed" role="navigation" aria-label="Main navigation">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="/" class="brand-logo" aria-label="FedsPay.com - Federal Employee Salaries">
+                    <span class="brand-text">FedsPay</span>
+                    <span class="brand-subtitle">.com</span>
+                </a>
+                <button 
+                    type="button" 
+                    data-target="mobile-nav" 
+                    class="sidenav-trigger" 
+                    aria-label="Open navigation menu"
+                    aria-expanded="false"
+                    aria-controls="mobile-nav">
+                    <i class="material-icons" aria-hidden="true">menu</i>
+                </button>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="/" class="nav-link" aria-label="Home page">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/states.html" class="nav-link" aria-label="View all states">
+                            All States
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/leostate.html" class="nav-link" aria-label="Law enforcement states">
+                            LEO States
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/state/RUS" class="nav-link" aria-label="General Schedule pay scale">
+                            GS Pay Scale
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/leopay/RUS" class="nav-link" aria-label="Law enforcement base pay">
+                            LEO Base Pay
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Navigation -->
+    <nav class="sidenav" id="mobile-nav" aria-label="Mobile navigation menu">
+        <div class="user-view">
+            <div class="background">
+                <div class="nav-background"></div>
+            </div>
+            <a href="/" aria-label="FedsPay.com homepage">
+                <span class="white-text name">FedsPay.com</span>
+            </a>
+            <a href="/" aria-label="Federal employee salaries information">
+                <span class="white-text email">Federal Employee Salaries</span>
+            </a>
+        </div>
+        <ul>
+            <li>
+                <a href="/" class="nav-link" aria-label="Navigate to home page">
+                    <i class="material-icons" aria-hidden="true">home</i>Home
+                </a>
+            </li>
+            <li>
+                <a href="/states.html" class="nav-link" aria-label="View all states information">
+                    <i class="material-icons" aria-hidden="true">location_on</i>All States
+                </a>
+            </li>
+            <li>
+                <a href="/leostate.html" class="nav-link" aria-label="View law enforcement officer states">
+                    <i class="material-icons" aria-hidden="true">security</i>LEO States
+                </a>
+            </li>
+            <li>
+                <a href="/state/RUS" class="nav-link" aria-label="View General Schedule pay scale information">
+                    <i class="material-icons" aria-hidden="true">account_balance</i>GS Pay Scale
+                </a>
+            </li>
+            <li>
+                <a href="/leopay/RUS" class="nav-link" aria-label="View law enforcement officer base pay information">
+                    <i class="material-icons" aria-hidden="true">local_police</i>LEO Base Pay
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>

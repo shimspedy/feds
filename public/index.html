@@ -12,6 +12,7 @@
     <meta property="og:description" content="Comprehensive database of federal employee salaries, GS pay scales, and LEO compensation.">
     <meta property="og:url" content="https://fedspay.com/">
     <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -33,29 +34,29 @@
 </head>
 <body>
     <div id="menu-placeholder"></div>
-    <div class="container">
+    <main class="container" id="main-content">
         <h1 class="center-align">Federal Employee Salaries by State</h1>
         <div class="row">
             <div class="col s12">
                 <p class="flow-text center-align">Access the latest 2025 federal employee salary tables for all US states and localities. Find comprehensive information on GS pay scales and Law Enforcement Officer compensation.</p>
             </div>
         </div>
-        <div class="input-field">
-            <input id="search-bar" type="text" class="validate">
-            <label for="search-bar">Search for a state or locality...</label>
+        <div class="search-container">
+            <input id="search-bar" type="text" placeholder="Search for a state or locality...">
         </div>
-        <table class="highlight responsive-table">
-            <thead>
-                <tr>
-                    <th>Locality Name</th>
-                    <th>Code</th>
-                </tr>
-            </thead>
-            <tbody id="states-list">
-                <!-- Dynamic content -->
-            </tbody>
+        <div class="data-table">
+            <table class="highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>Locality Name</th>
+                        <th>Code</th>
+                    </tr>
+                </thead>
+                <tbody id="states-list">
+                    <!-- Dynamic content -->            </tbody>
         </table>
     </div>
+    </main>
     
     <section class="container center center-align" id="about-section">
         <div class="row">
@@ -73,14 +74,9 @@
         </div>
     </section>
 
-    <footer class="page-footer">
-        <div class="container">
-            <p>Last Updated: April 2025 | All data represents official federal pay scales for 2025</p>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="/menu.js"></script>
-    <script src="/states.js"></script>
+    <script type="module" src="/js/app.js"></script>
 </body>
 </html>

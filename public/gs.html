@@ -3,36 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GS Information</title>
-    <meta name="description" content="Discover detailed federal employee salaries by state. Navigate through GS grades and understand pay scales across different localities.">
-    <meta name="keywords" content="Federal Employee Salaries, GS Grades, State Salaries, Federal Pay Scales, Locality Pay Areas">
-    
+    <title>GS Grade Information | Federal Employee Salary Details | FedsPay.com</title>
+    <meta name="description" content="Discover detailed federal employee salaries by GS grade and state. Navigate through GS grades and understand pay scales across different localities for 2025.">
+    <meta name="keywords" content="Federal Employee Salaries, GS Grades, State Salaries, Federal Pay Scales, Locality Pay Areas, GS Pay Table, Government Salary">
+    <link rel="canonical" href="https://fedspay.com/gs" />
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="GS Grade Information - Federal Employee Salary Details">
+    <meta property="og:description" content="Discover detailed federal employee salaries by GS grade and state for 2025.">
+    <meta property="og:url" content="https://fedspay.com/gs">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  
 </head>
 <body>
     <div id="menu-placeholder"></div>
-    <h1 id="state-name" class="state-abbr"></h1>
-    <h2 id="grade-state"></h2>
-    <table  class="highlight responsive-table" id="gs-table">
-        <thead>
-            <tr>
-                <th>Step</th>
-                <th>Hourly Salary</th>
-                <th>Overtime Salary</th>
-                <th>Annual Salary</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Dynamic content -->
-        </tbody>
-    </table>
+    
+    <div class="container">
+        <div class="breadcrumb-nav">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/states.html">States</a></li>
+                <li class="breadcrumb-item active" id="breadcrumb-state">GS Grade Details</li>
+            </ol>
+        </div>
+        
+        <h1 id="state-name" class="center-align">GS Grade Information</h1>
+        <h2 id="grade-state" class="center-align">2025 General Schedule Pay Details</h2>
+        
+        <div id="loading-spinner" class="loading-spinner" style="display: none;">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Loading GS pay data...</p>
+        </div>
+        
+        <div id="error-message" class="error-message" style="display: none;">
+            <i class="material-icons">error</i>
+            <span>Failed to load GS pay data. Please try again.</span>
+        </div>
+        
+        <div class="data-table">
+            <table class="highlight responsive-table" id="gs-table">
+                <thead>
+                    <tr>
+                        <th>Step</th>
+                        <th>Hourly Salary</th>
+                        <th>Overtime Salary</th>
+                        <th>Annual Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic content -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div id="footer-placeholder"></div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="/menu.js"></script>
-    <script src="/gs.js"></script>
-    <script src="/states-full-names.js"></script>
+    <script type="module" src="/js/app.js"></script>
 </body>
 </html>

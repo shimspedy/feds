@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Federal Employee Salaries by State | 2025 GS Pay Tables</title>
+    <title>Federal Employee Salaries by State | 2025 GS Pay Tables | FedsPay.com</title>
     <meta name="description" content="Explore comprehensive 2025 federal employee salary data by state with accurate GS pay tables. Find detailed information on steps, grades and locality pay.">
     <meta name="keywords" content="Federal Employee Salaries, GS Grades, State Salaries, Federal Pay Scales, Locality Pay Areas, 2025 Pay Tables, Government Salary">
     <link rel="canonical" href="https://fedspay.com/state" />
     <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Federal Employee Salaries by State">
+    <meta property="og:description" content="Explore comprehensive 2025 federal employee salary data by state with accurate GS pay tables.">
+    <meta property="og:url" content="https://fedspay.com/state">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -25,38 +30,68 @@
 </head>
 <body>
     <div id="menu-placeholder"></div>
+    
     <div class="container">
-        <h1 id="state-name" class="state-abbr center-align"></h1>
-        <h2 class="center-align">2025 General Schedule (GS) Pay Table</h2>
-        <table class="highlight responsive-table" id="state-table">
-            <thead>
-                <tr>
-                    <th>GS Grade</th>
-                    <th>Step 1</th>
-                    <th>Step 2</th>
-                    <th>Step 3</th>
-                    <th>Step 4</th>
-                    <th>Step 5</th>
-                    <th>Step 6</th>
-                    <th>Step 7</th>
-                    <th>Step 8</th>
-                    <th>Step 9</th>
-                    <th>Step 10</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Dynamic content -->
-            </tbody>
-        </table>
-    </div>
-    <footer class="page-footer">
-        <div class="container">
-            <p>Last Updated: April 2025 | Official 2025 General Schedule Pay Tables</p>
+        <div class="breadcrumb-nav">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/states.html">States</a></li>
+                <li class="breadcrumb-item active" id="breadcrumb-state">State</li>
+            </ol>
         </div>
-    </footer>
+        
+        <h1 id="state-name" class="center-align">Federal Employee Salaries</h1>
+        <h2 class="center-align">2025 General Schedule (GS) Pay Table</h2>
+        
+        <div id="loading-spinner" class="loading-spinner" style="display: none;">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Loading pay data...</p>
+        </div>
+        
+        <div id="error-message" class="error-message" style="display: none;">
+            <i class="material-icons">error</i>
+            <span>Failed to load pay data. Please try again.</span>
+        </div>
+        
+        <div class="data-table">
+            <table class="highlight responsive-table" id="state-table">
+                <thead>
+                    <tr>
+                        <th>GS Grade</th>
+                        <th>Step 1</th>
+                        <th>Step 2</th>
+                        <th>Step 3</th>
+                        <th>Step 4</th>
+                        <th>Step 5</th>
+                        <th>Step 6</th>
+                        <th>Step 7</th>
+                        <th>Step 8</th>
+                        <th>Step 9</th>
+                        <th>Step 10</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic content -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div id="footer-placeholder"></div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="/menu.js"></script>
-    <script src="/state.js"></script>
-    <script src="/states-full-names.js"></script>
+    <script type="module" src="/js/app.js"></script>
 </body>
 </html>

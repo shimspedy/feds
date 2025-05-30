@@ -3,17 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>States List</title>
+    <title>All States | Federal Employee Salaries 2025 | FedsPay.com</title>
+    <meta name="description" content="Browse federal employee salary data for all US states and territories. Access GS pay scales and locality pay information by state.">
+    <meta name="keywords" content="Federal Employee Salaries by State, GS Pay Tables, Government Worker Pay, Federal Pay Scales by State">
+    <link rel="canonical" href="https://fedspay.com/states.html" />
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Federal Employee Salaries by State">
+    <meta property="og:description" content="Browse federal employee salary data for all US states and territories.">
+    <meta property="og:url" content="https://fedspay.com/states.html">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body>
+    <div id="menu-placeholder"></div>
+    
     <div class="container">
-        <h1 class="center-align">States List</h1>
-        <ul id="states-list" class="collection">
-            <!-- Dynamic states list -->
-        </ul>
+        <h1 class="center-align">Federal Employee Salaries by State</h1>
+        
+        <div class="search-container">
+            <input id="search-bar" type="text" placeholder="Search for a state...">
+        </div>
+        
+        <div id="loading-spinner" class="loading-spinner" style="display: none;">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Loading states...</p>
+        </div>
+        
+        <div id="error-message" class="error-message" style="display: none;">
+            <i class="material-icons">error</i>
+            <span>Failed to load states. Please try again.</span>
+        </div>
+        
+        <div id="states-grid" class="states-grid">
+            <!-- Dynamic content -->
+        </div>
     </div>
+    
+    <div id="footer-placeholder"></div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="/statee.js"></script>
+    <script type="module" src="/js/app.js"></script>
 </body>
 </html>

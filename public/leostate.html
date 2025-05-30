@@ -1,38 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<htm    <div id="menu-placeholder"></div>
+    
+    <main class="container" id="main-content">
+        <h1 class="center-align">Law Enforcement Officer (LEO) States</h1>ng="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Law Enforcement Officer Salaries</title>
-    <meta name="description" content="Detailed information on salaries, hourly rates, and overtime rates for Law Enforcement Officers and police officers. Learn how much cops make and explore comprehensive salary data.">
-    <meta name="keywords" content="Law Enforcement Officer salaries, police officer salaries, hourly rates, overtime rates, how much cops make, salary data, police pay, law enforcement compensation">
+    <title>Law Enforcement Officer Salaries by State 2025 | LEO Pay | FedsPay.com</title>
+    <meta name="description" content="Browse Law Enforcement Officer (LEO) salary data by state. Access comprehensive federal LEO pay tables, hourly rates, and overtime compensation for 2025.">
+    <meta name="keywords" content="Law Enforcement Officer salaries, LEO pay by state, police officer salaries, federal LEO compensation, law enforcement pay scales">
+    <link rel="canonical" href="https://fedspay.com/leostate.html" />
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Law Enforcement Officer Salaries by State">
+    <meta property="og:description" content="Browse Law Enforcement Officer (LEO) salary data by state for 2025.">
+    <meta property="og:url" content="https://fedspay.com/leostate.html">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body>
     <div id="menu-placeholder"></div>
+    
     <div class="container">
-        <h1 class="center-align">Select a State</h1>
-        <div class="input-field">
-            <input id="search-bar" type="text" class="validate">
-            <label for="search-bar">Search for a state...</label>
+        <h1 class="center-align">Law Enforcement Officer Salaries by State</h1>
+        
+        <div class="row">
+            <div class="col s12">
+                <p class="flow-text center-align">Access the latest 2025 Law Enforcement Officer salary tables for all US states and localities. Find comprehensive information on LEO pay scales and compensation data.</p>
+            </div>
         </div>
-        <table class="highlight responsive-table">
-            <thead>
-                <tr>
-                    <th>State</th>
-                    <th>Abbreviation</th>
-                </tr>
-            </thead>
-            <tbody id="states-list">
-                <!-- Dynamic content -->
-            </tbody>
-        </table>
-    </div>
+        
+        <div class="search-container">
+            <input id="search-bar" type="text" placeholder="Search for a state or locality...">
+        </div>
+        
+        <div class="data-table">
+            <table class="highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>State Name</th>
+                        <th>Code</th>
+                    </tr>
+                </thead>
+                <tbody id="states-list">
+                    <!-- Dynamic content -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+    
+    <section class="container center center-align" id="about-section">
+        <div class="row">
+            <div class="col s12">
+                <h2>About Law Enforcement Officer Pay Scales</h2>
+                <p>FedsPay.com provides accurate and up-to-date information on Law Enforcement Officer compensation across all 50 states and U.S. territories. Our comprehensive LEO database includes:</p>
+                <ul class="browser-default">
+                    <li>Law Enforcement Officer (LEO) pay tables by locality</li>
+                    <li>Police officer salary information by grade</li>
+                    <li>Step increases and grade comparisons</li>
+                    <li>Annual, hourly, and overtime rates</li>
+                </ul>
+                <p>All LEO data is current for the 2025 fiscal year and reflects official government pay scales for law enforcement personnel.</p>
+            </div>
+        </div>
+    </section>
+    
+    <div id="footer-placeholder"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="/menu.js"></script>
-    <script src="/leostate.js"></script>
+    <script type="module" src="/js/app.js"></script>
 </body>
 </html>

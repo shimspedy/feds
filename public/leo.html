@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Law Enforcement Officer Pay Scales | 2025 LEO Salary Tables</title>
+    <title>Law Enforcement Officer Pay Scales | 2025 LEO Salary Tables | FedsPay.com</title>
     <meta name="description" content="Explore comprehensive 2025 Law Enforcement Officer (LEO) salary data including hourly rates, overtime rates, and annual pay scales. Find accurate information on police officer compensation.">
     <meta name="keywords" content="Law Enforcement Officer salaries, police officer salaries, federal LEO pay, hourly rates, overtime rates, how much cops make, salary data, police pay, law enforcement compensation, 2025 pay scales">
     <link rel="canonical" href="https://fedspay.com/leo" />
     <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Law Enforcement Officer Pay Scales">
+    <meta property="og:description" content="Explore comprehensive 2025 Law Enforcement Officer (LEO) salary data including hourly rates, overtime rates, and annual pay scales.">
+    <meta property="og:url" content="https://fedspay.com/leo">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -27,36 +32,67 @@
 </head>
 <body>
     <div id="menu-placeholder"></div>
+    
     <div class="container">
-        <h1 id="state-name" class="state-abbr center-align"></h1>
+        <div class="breadcrumb-nav">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/leostate.html">LEO States</a></li>
+                <li class="breadcrumb-item active" id="breadcrumb-state">State</li>
+            </ol>
+        </div>
+        
+        <h1 id="state-name" class="center-align">Law Enforcement Officer Pay</h1>
         <h2 id="grade-state" class="center-align">2025 Law Enforcement Officer Pay Scales</h2>
+        
         <div class="row">
             <div class="col s12">
                 <p class="flow-text">This table provides detailed information about Law Enforcement Officer (LEO) compensation in this locality, including hourly rates, overtime rates, and annual salaries across all steps.</p>
             </div>
         </div>
-        <table class="highlight responsive-table" id="leo-table">
-            <thead>
-                <tr>
-                    <th>Step</th>
-                    <th>Hourly Salary</th>
-                    <th>Overtime Salary</th>
-                    <th>Annual Salary</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Dynamic content -->
-            </tbody>
-        </table>
-    </div>
-    <footer class="page-footer">
-        <div class="container">
-            <p>Last Updated: April 2025 | Official 2025 Law Enforcement Officer Pay Tables</p>
+        
+        <div id="loading-spinner" class="loading-spinner" style="display: none;">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Loading LEO pay data...</p>
         </div>
-    </footer>
+        
+        <div id="error-message" class="error-message" style="display: none;">
+            <i class="material-icons">error</i>
+            <span>Failed to load LEO pay data. Please try again.</span>
+        </div>
+        
+        <div class="data-table">
+            <table class="highlight responsive-table" id="leo-table">
+                <thead>
+                    <tr>
+                        <th>Step</th>
+                        <th>Hourly Salary</th>
+                        <th>Overtime Salary</th>
+                        <th>Annual Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic content -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div id="footer-placeholder"></div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="/menu.js"></script>
-    <script src="/leo.js"></script>
-    <script src="/leostates-full-names.js"></script>
+    <script type="module" src="/js/app.js"></script>
 </body>
 </html>
