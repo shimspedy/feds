@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test LEO Data Fetch</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug { background: #f0f0f0; padding: 10px; margin: 10px 0; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+    </style>
+</head>
+<body>
+    <h1>Test LEO Data Fetch</h1>
+    
+    <div id="debug-output" class="debug">
+        Testing LEO data fetch...
+    </div>
+    
+    <div id="states-count" class="debug">
+        States count will appear here...
+    </div>
+    
+    <script type="module">
+        import { DataUtils, STATE_MAP } from './public/js/utils.js';
+        
+        async function testLEOData() {
+            const debugDiv = document.getElementById('debug-output');
+            const countDiv = document.getElementById('states-count');
+            
+            try {
+                debugDiv.innerHTML = 'Fetching LEO data...';
+                debugDiv.className = 'debug';
+                
+                const data = await DataUtils.fetchLEOData();
+                debugDiv.innerHTML = 'LEO data fetched successfully!';
+                debugDiv.className = 'debug success';
+                
+                const availableStates = Object.keys(data).filter(state => STATE_MAP[state]);
+                countDiv.innerHTML = `Available states: ${availableStates.length}<br>States: ${availableStates.slice(0, 10).join(', ')}${availableStates.length > 10 ? '...' : ''}`;
+                countDiv.className = 'debug success';
+                
+            } catch (error) {
+                debugDiv.innerHTML = `Error fetching LEO data: ${error.message}`;
+                debugDiv.className = 'debug error';
+                console.error('Error:', error);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', testLEOData);
+    </script>
+</body>
+</html>

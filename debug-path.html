@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Path Parsing</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug { background: #f0f0f0; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Debug Path Parsing for /leostate</h1>
+    
+    <div id="debug-output" class="debug">
+        Debug output will appear here...
+    </div>
+    
+    <script type="module">
+        import { Utils } from './public/js/utils.js';
+        
+        function testPathParsing() {
+            const debugDiv = document.getElementById('debug-output');
+            
+            // Test with /leostate
+            const pathname = '/leostate';
+            const pathInfo = Utils.parsePath(pathname);
+            
+            debugDiv.innerHTML = `
+                <h3>Testing pathname: ${pathname}</h3>
+                <p><strong>segments:</strong> [${pathInfo.segments.join(', ')}]</p>
+                <p><strong>state:</strong> ${pathInfo.state}</p>
+                <p><strong>city:</strong> ${pathInfo.city}</p>
+                <p><strong>grade:</strong> ${pathInfo.grade}</p>
+                <p><strong>isGsPage:</strong> ${pathInfo.isGsPage}</p>
+                <p><strong>isLeoPage:</strong> ${pathInfo.isLeoPage}</p>
+                <p><strong>isStatePage:</strong> ${pathInfo.isStatePage}</p>
+                <p><strong>isLeopayPage:</strong> ${pathInfo.isLeopayPage}</p>
+                <p><strong>segments.some(s => s.includes('leostate')):</strong> ${pathInfo.segments.some(segment => segment.includes('leostate'))}</p>
+                <p><strong>pathname.includes('leostate'):</strong> ${pathname.includes('leostate')}</p>
+            `;
+        }
+        
+        document.addEventListener('DOMContentLoaded', testPathParsing);
+    </script>
+</body>
+</html>

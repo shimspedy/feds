@@ -328,6 +328,12 @@ export class LeoStatesListPage extends BasePage {
         const statesList = document.querySelector(CONFIG.SELECTORS.STATES_LIST);
         const searchBar = document.querySelector(CONFIG.SELECTORS.SEARCH_BAR);
 
+        // Remove loading indicator
+        const loadingIndicator = document.getElementById('loading-indicator');
+        if (loadingIndicator) {
+            loadingIndicator.remove();
+        }
+
         try {
             const data = await DataUtils.fetchLEOData();
             const availableStates = Object.keys(data).filter(state => STATE_MAP[state]);
@@ -337,9 +343,19 @@ export class LeoStatesListPage extends BasePage {
                 
                 // Setup search functionality
                 StateListUtils.setupSearch(searchBar, statesList, availableStates, '/leopay', 'leopay');
+            } else {
+                // Add error row if container not found
+                const tbody = document.querySelector('tbody');
+                if (tbody) {
+                    tbody.innerHTML = '<tr><td colspan="2">Error: Container not found</td></tr>';
+                }
             }
 
         } catch (error) {
+            // Add error row if data fetch fails
+            if (statesList) {
+                statesList.innerHTML = '<tr><td colspan="2">Error loading LEO states data</td></tr>';
+            }
             Utils.handleError(error, 'LEO states list setup');
         }
     }
@@ -418,14 +434,22 @@ export class PageFactory {
  * Auto-initialize page when DOM is loaded
  */
 export function initializePage() {
-    document.addEventListener('DOMContentLoaded', async () => {
+    const initialize = async () => {
         try {
             const page = PageFactory.createPage();
             await page.init();
         } catch (error) {
             Utils.handleError(error, 'page auto-initialization');
         }
-    });
+    };
+
+    // If DOM is already loaded, initialize immediately
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initialize);
+    } else {
+        // DOM is already loaded, initialize immediately
+        initialize();
+    }
 }
 
 // Auto-initialize if this module is loaded directly
