@@ -329,7 +329,8 @@ export class WildlandPayPage extends BasePage {
     }
 
     updatePageSEO(state) {
-        const fullName = STATE_MAP[state] || state;
+        const normalizedState = state ? state.replace(/_GW$/i, '') : state;
+        const fullName = STATE_MAP[state] || STATE_MAP[normalizedState] || US_STATES_MAP[normalizedState] || state;
         const title = `Wildland Firefighter Pay in ${fullName}`;
         const description = `${title} - Review 2025 Wildland Firefighter (GW) salary tables including hourly, overtime, and annual pay for each step.`;
         const canonicalUrl = `${CONFIG.BASE_URL}/wildlandpay/${state}`;
@@ -381,7 +382,8 @@ export class WildlandDetailPage extends BasePage {
     }
 
     updatePageSEO(state, grade) {
-        const fullName = STATE_MAP[state] || state;
+        const normalizedState = state ? state.replace(/_GW$/i, '') : state;
+        const fullName = STATE_MAP[state] || STATE_MAP[normalizedState] || US_STATES_MAP[normalizedState] || state;
         const title = `${grade} Wildland Firefighter Pay in ${fullName}`;
         const description = `${title} - Detailed Wildland Firefighter salary steps with hourly, overtime, and annual compensation for 2025.`;
         const canonicalUrl = `${CONFIG.BASE_URL}/wildland/${state}/${encodeURIComponent(grade)}`;
@@ -474,7 +476,10 @@ export class WildlandStatesListPage extends BasePage {
 
         try {
             const data = await DataUtils.fetchWildlandData();
-            const availableStates = Object.keys(data).filter(state => STATE_MAP[state] || US_STATES_MAP[state]);
+            const availableStates = Object.keys(data).filter(state => {
+                const normalized = state.replace(/_GW$/i, '');
+                return STATE_MAP[state] || STATE_MAP[normalized] || US_STATES_MAP[normalized];
+            });
 
             if (statesContainer) {
                 StateListUtils.displayStates(statesContainer, availableStates, '/wildlandpay', 'wildland');

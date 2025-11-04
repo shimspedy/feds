@@ -72,8 +72,20 @@ app.get('/wildlandstate', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'wildlandstate.html'));
 });
 
+app.get('/wildlandstate.html', (req, res) => {
+    res.redirect(301, '/wildlandstate');
+});
+
+app.get('/wildlandpay/RUS', (req, res) => {
+    res.redirect(301, '/wildlandpay/RUS_GW');
+});
+
 app.get('/wildlandpay/:state', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'wildlandpay.html'));
+});
+
+app.get('/wildland/RUS/:grade', (req, res) => {
+    res.redirect(301, `/wildland/RUS_GW/${req.params.grade}`);
 });
 
 app.get('/wildland/:state/:grade', (req, res) => {

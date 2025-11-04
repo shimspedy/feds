@@ -473,8 +473,21 @@ export class DOMUtils {
         
         stateElements.forEach(element => {
             const abbr = element.textContent.trim();
+            const normalizedAbbr = abbr.replace(/_GW$/i, '');
+            const isWildland = /_GW$/i.test(abbr);
+
+            const fallbackName = STATE_MAP[normalizedAbbr] || US_STATES_MAP[normalizedAbbr] || normalizedAbbr;
+
             if (STATE_MAP[abbr]) {
                 element.textContent = STATE_MAP[abbr];
+            } else if (fallbackName) {
+                if (isWildland) {
+                    element.textContent = `${fallbackName} (${abbr})`;
+                } else if (STATE_MAP[normalizedAbbr]) {
+                    element.textContent = STATE_MAP[normalizedAbbr];
+                } else {
+                    element.textContent = fallbackName;
+                }
             }
         });
     }
@@ -592,7 +605,10 @@ export class StateListUtils {
         const isTable = container.tagName === 'TABLE' || container.tagName === 'TBODY';
         
         states.forEach(state => {
-            const fullName = US_STATES_MAP[state] || STATE_MAP[state] || state;
+            const isWildland = typeof state === 'string' && state.endsWith('_GW');
+            const normalizedState = typeof state === 'string' ? state.replace(/_GW$/i, '') : state;
+            const fullNameBase = US_STATES_MAP[normalizedState] || STATE_MAP[state] || STATE_MAP[normalizedState] || normalizedState;
+            const fullName = isWildland ? `${fullNameBase} (Wildland Firefighter - ${state})` : fullNameBase;
             const linkUrl = `${baseUrl}/${state}`;
             
             if (isList) {
@@ -645,7 +661,10 @@ export class StateListUtils {
         
         const lowerSearchTerm = searchTerm.toLowerCase();
         return states.filter(state => {
-            const fullName = STATE_MAP[state] || state;
+            const isWildland = typeof state === 'string' && state.endsWith('_GW');
+            const normalizedState = typeof state === 'string' ? state.replace(/_GW$/i, '') : state;
+            const fullNameBase = STATE_MAP[state] || STATE_MAP[normalizedState] || state;
+            const fullName = isWildland ? `${fullNameBase} (Wildland Firefighter - ${state})` : fullNameBase;
             return fullName.toLowerCase().includes(lowerSearchTerm) || 
                    state.toLowerCase().includes(lowerSearchTerm);
         });

@@ -20,7 +20,7 @@ df = pd.read_excel(FILE_PATH, sheet_name=sheet_name)
 wildland_data = {}
 
 for _, row in df.iterrows():
-    locname = str(row['LOCNAME']).replace('_GW', '').strip()
+    locname = str(row['LOCNAME']).strip()
     grade = f"GW{int(row['GRADE'])}"
 
     if locname not in wildland_data:
