@@ -34,22 +34,18 @@ class BasePage {
      */
     async loadMenu() {
         const menuPlaceholder = document.querySelector(CONFIG.SELECTORS.MENU_PLACEHOLDER);
-        if (menuPlaceholder) {
-            try {
-                const response = await fetch('/menu.html');
-                const menuHTML = await response.text();
-                menuPlaceholder.innerHTML = menuHTML;
-                
-                // Load menu script if not already loaded
-                if (!window.menuLoaded) {
-                    const script = document.createElement('script');
-                    script.src = '/menu.js';
-                    document.head.appendChild(script);
-                    window.menuLoaded = true;
-                }
-            } catch (error) {
-                console.warn('Could not load menu:', error);
-            }
+        if (!menuPlaceholder || menuPlaceholder.childElementCount > 0 || menuPlaceholder.innerHTML.trim()) {
+            return;
+        }
+
+        try {
+            const response = await fetch('/menu.html');
+            const menuHTML = await response.text();
+            menuPlaceholder.innerHTML = menuHTML;
+            window.menuLoaded = true;
+            document.dispatchEvent(new CustomEvent('menu:loaded'));
+        } catch (error) {
+            console.warn('Could not load menu:', error);
         }
     }
 

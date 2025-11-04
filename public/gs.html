@@ -6,12 +6,22 @@
     <title>GS Grade Information | Federal Employee Salary Details | FedsPay.com</title>
     <meta name="description" content="Discover detailed federal employee salaries by GS grade and state. Navigate through GS grades and understand pay scales across different localities for 2025.">
     <meta name="keywords" content="Federal Employee Salaries, GS Grades, State Salaries, Federal Pay Scales, Locality Pay Areas, GS Pay Table, Government Salary">
+    <meta name="theme-color" content="#0d47a1">
     <link rel="canonical" href="https://fedspay.com/gs" />
     <meta name="robots" content="index, follow">
+    <meta property="og:site_name" content="FedsPay.com">
     <meta property="og:title" content="GS Grade Information - Federal Employee Salary Details">
     <meta property="og:description" content="Discover detailed federal employee salaries by GS grade and state for 2025.">
     <meta property="og:url" content="https://fedspay.com/gs">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="https://fedspay.com/img/fedspay-og.svg">
+    <meta property="og:image:alt" content="FedsPay.com GS salary tables">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GS Grade Information | FedsPay.com">
+    <meta name="twitter:description" content="See GS salary details including hourly, overtime, and annual pay for each step.">
+    <meta name="twitter:image" content="https://fedspay.com/img/fedspay-og.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="/styles.css">
@@ -20,19 +30,19 @@
 <body>
     <div id="menu-placeholder"></div>
     
-    <div class="container">
-        <div class="breadcrumb-nav">
+    <main class="container main-content" id="main-content" role="main">
+        <nav class="breadcrumb-nav" aria-label="Breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item"><a href="/states.html">States</a></li>
-                <li class="breadcrumb-item active" id="breadcrumb-state">GS Grade Details</li>
+                <li class="breadcrumb-item active" id="breadcrumb-state" aria-current="page">GS Grade Details</li>
             </ol>
-        </div>
-        
+        </nav>
+
         <h1 id="state-name" class="center-align">GS Grade Information</h1>
         <h2 id="grade-state" class="center-align">2025 General Schedule Pay Details</h2>
         
-        <div id="loading-spinner" class="loading-spinner" style="display: none;">
+        <div id="loading-spinner" class="loading-spinner" style="display: none;" role="status" aria-live="polite">
             <div class="preloader-wrapper big active">
                 <div class="spinner-layer spinner-blue">
                     <div class="circle-clipper left">
@@ -49,19 +59,22 @@
             <p>Loading GS pay data...</p>
         </div>
         
-        <div id="error-message" class="error-message" style="display: none;">
+        <div id="error-message" class="error-message" style="display: none;" role="alert" aria-live="assertive">
             <i class="material-icons">error</i>
             <span>Failed to load GS pay data. Please try again.</span>
         </div>
         
-        <div class="data-table">
+        <div class="data-table" role="region" aria-labelledby="gs-table-caption">
             <table class="highlight responsive-table" id="gs-table">
+                <caption id="gs-table-caption" class="sr-only">
+                    General Schedule grade details showing hourly, overtime, and annual salaries for each step.
+                </caption>
                 <thead>
                     <tr>
-                        <th>Step</th>
-                        <th>Hourly Salary</th>
-                        <th>Overtime Salary</th>
-                        <th>Annual Salary</th>
+                        <th scope="col">Step</th>
+                        <th scope="col">Hourly Salary</th>
+                        <th scope="col">Overtime Salary</th>
+                        <th scope="col">Annual Salary</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,7 +82,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </main>
     
     <div id="footer-placeholder"></div>
 

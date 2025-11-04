@@ -18,9 +18,7 @@ async function loadComponents() {
             if (menuResponse.ok) {
                 const menuHtml = await menuResponse.text();
                 menuPlaceholder.innerHTML = menuHtml;
-                
-                // Initialize enhanced mobile navigation
-                initializeEnhancedSidenav();
+                document.dispatchEvent(new CustomEvent('menu:loaded'));
             }
         } catch (error) {
             console.error('Error loading header:', error);
@@ -47,6 +45,7 @@ async function loadComponents() {
  */
 function initializeEnhancedSidenav() {
     const sidenavElems = document.querySelectorAll('.sidenav');
+    setTriggerExpanded(false);
     
     if (sidenavElems.length === 0) return;
     
@@ -58,10 +57,12 @@ function initializeEnhancedSidenav() {
             preventScrolling: true,
             onOpenStart: () => {
                 document.body.style.overflow = 'hidden';
+                setTriggerExpanded(true);
                 addSidenavOverlay();
             },
             onCloseStart: () => {
                 document.body.style.overflow = '';
+                setTriggerExpanded(false);
                 removeSidenavOverlay();
             }
         });
@@ -164,6 +165,7 @@ function openSidenav() {
     const sidenav = document.querySelector('.sidenav');
     sidenav.classList.add('open');
     document.body.style.overflow = 'hidden';
+    setTriggerExpanded(true);
     addSidenavOverlay();
 }
 
@@ -171,6 +173,7 @@ function closeSidenav() {
     const sidenav = document.querySelector('.sidenav');
     sidenav.classList.remove('open');
     document.body.style.overflow = '';
+    setTriggerExpanded(false);
     removeSidenavOverlay();
 }
 
@@ -200,6 +203,13 @@ function removeSidenavOverlay() {
                 overlay.parentNode.removeChild(overlay);
             }
         }, 300);
+    }
+}
+
+function setTriggerExpanded(expanded) {
+    const trigger = document.querySelector('.sidenav-trigger');
+    if (trigger) {
+        trigger.setAttribute('aria-expanded', String(expanded));
     }
 }
 
@@ -263,6 +273,7 @@ function highlightActiveNavLink() {
         
         // Remove existing active class
         link.classList.remove('active');
+        link.removeAttribute('aria-current');
         
         // Add active class to matching link
         if (linkPath === currentPath || 
@@ -272,7 +283,24 @@ function highlightActiveNavLink() {
             (currentPath.includes('/state/') && linkPath.includes('/state/')) ||
             (currentPath.includes('/leopay/') && linkPath.includes('/leopay/'))) {
             link.classList.add('active');
+            link.setAttribute('aria-current', 'page');
         }
+    });
+}
+
+/**
+ * Prevent full page reload when using search forms
+ */
+function setupSearchFormHandlers() {
+    const searchForms = document.querySelectorAll('.search-form');
+    searchForms.forEach(form => {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const input = form.querySelector('input[type="search"]');
+            if (input) {
+                input.blur();
+            }
+        });
     });
 }
 
@@ -282,7 +310,13 @@ function highlightActiveNavLink() {
 document.addEventListener('DOMContentLoaded', async () => {
     // Load header and footer components first
     await loadComponents();
+    setupSearchFormHandlers();
     
     // Then initialize the page-specific functionality
     initializePage();
+});
+
+document.addEventListener('menu:loaded', () => {
+    initializeEnhancedSidenav();
+    highlightActiveNavLink();
 });

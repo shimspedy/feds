@@ -46,6 +46,15 @@
     --transition-speed: 0.3s;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
 /* General styling */
 body {
     font-family: var(--font-family-base);
@@ -97,7 +106,24 @@ h1 {
     font-weight: 600;
 }
 
-input[type="text"] {
+.main-content {
+    padding-top: var(--spacing-xl);
+    padding-bottom: var(--spacing-xl);
+}
+
+.page-hero {
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+}
+
+.intro-text {
+    max-width: 720px;
+    margin: 0 auto var(--spacing-lg);
+    color: var(--medium-gray);
+}
+
+input[type="text"],
+input[type="search"] {
     display: block;
     margin: var(--spacing-lg) auto;
     padding: var(--spacing-md);
@@ -110,7 +136,8 @@ input[type="text"] {
     transition: var(--transition-base);
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+input[type="search"]:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     outline: none;
@@ -387,10 +414,27 @@ img {
         margin: var(--spacing-sm) 0;
     }
     
-    input[type="text"] {
+    input[type="text"],
+    input[type="search"] {
         width: 95%;
     }
     
+    .main-content {
+        padding: var(--spacing-lg) var(--spacing-sm);
+    }
+
+    .page-hero {
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .intro-text {
+        font-size: 1rem;
+    }
+
+    .search-form {
+        width: 100%;
+    }
+
     #about-section {
         margin: var(--spacing-lg) var(--spacing-sm);
         padding: var(--spacing-lg);
@@ -435,16 +479,14 @@ img {
 }
 
 /* Search Component */
+.search-form,
 .search-container {
     max-width: 500px;
     margin: 0 auto var(--spacing-lg);
     position: relative;
 }
 
-.search-container .input-field {
-    margin-bottom: 0;
-}
-
+.search-form input[type="search"],
 .search-container input[type="text"] {
     border: 2px solid var(--border-color);
     border-radius: var(--border-radius);
@@ -454,6 +496,7 @@ img {
     width: 100%;
 }
 
+.search-form input[type="search"]:focus,
 .search-container input[type="text"]:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
@@ -934,6 +977,3 @@ img {
         padding-top: 0;
     }
 }
-
-
-

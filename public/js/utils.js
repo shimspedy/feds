@@ -539,6 +539,12 @@ export class StateListUtils {
     static displayStates(container, states, baseUrl = '/state', linkType = 'state') {
         if (!container) return;
         
+        const isLiveRegion = container.getAttribute('role') === 'list';
+        if (isLiveRegion) {
+            container.setAttribute('aria-live', 'polite');
+            container.setAttribute('aria-busy', 'true');
+        }
+
         container.innerHTML = '';
         const isList = container.tagName === 'UL';
         const isTable = container.tagName === 'TABLE' || container.tagName === 'TBODY';
@@ -566,6 +572,7 @@ export class StateListUtils {
                 // Handle DIV containers (like states-grid)
                 const stateDiv = document.createElement('div');
                 stateDiv.classList.add('state-item');
+                stateDiv.setAttribute('role', 'listitem');
                 stateDiv.innerHTML = `
                     <a href="${linkUrl}" class="state-card">
                         <div class="state-name">${fullName}</div>
@@ -575,6 +582,10 @@ export class StateListUtils {
                 container.appendChild(stateDiv);
             }
         });
+
+        if (isLiveRegion) {
+            container.setAttribute('aria-busy', 'false');
+        }
     }
 
     /**
