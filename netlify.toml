@@ -31,3 +31,8 @@
   from = "/wildlandpay/*"
   to = "/wildlandpay"
   status = 200
+
+[[redirects]]
+  from = "/wildland/*"
+  to = "/wildland"
+  status = 200
