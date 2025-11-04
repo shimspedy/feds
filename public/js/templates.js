@@ -20,18 +20,28 @@ export class TemplateUtils {
             description = 'Comprehensive federal employee salary data including GS grades and LEO pay scales.',
             keywords = 'Federal Employee Salaries, GS Grades, LEO Pay, Government Salaries',
             canonicalUrl = '',
-            type = 'gs', // 'gs' or 'leo'
+            type = 'gs', // 'gs', 'leo', or 'wildland'
             structuredData = null
         } = options;
 
-        const serviceName = type === 'gs' ? 'General Schedule Pay Scales' : 'Law Enforcement Officer Pay Scales';
+        const serviceName = type === 'gs'
+            ? 'General Schedule Pay Scales'
+            : type === 'leo'
+                ? 'Law Enforcement Officer Pay Scales'
+                : 'Wildland Firefighter Pay Tables';
+        const serviceType = type === 'gs'
+            ? 'Federal Employee Compensation'
+            : type === 'leo'
+                ? 'Law Enforcement Officer Compensation'
+                : 'Wildland Firefighter Compensation';
+
         const defaultStructuredData = {
             "@context": "https://schema.org",
             "@type": "Table",
             "about": {
                 "@type": "GovernmentService",
                 "name": serviceName,
-                "serviceType": type === 'gs' ? 'Federal Employee Compensation' : 'Law Enforcement Officer Compensation'
+                "serviceType": serviceType
             },
             "name": `2025 ${serviceName}`
         };
@@ -79,7 +89,7 @@ export class TemplateUtils {
     static generateSalaryTable(options = {}) {
         const {
             id = 'salary-table',
-            type = 'gs', // 'gs' or 'leo'
+            type = 'gs', // 'gs', 'leo', or 'wildland'
             mode = 'detail', // 'detail' or 'overview'
             showGrade = true
         } = options;
@@ -103,8 +113,8 @@ export class TemplateUtils {
         } else {
             headers = `
                 <th>Step</th>
-                <th>Hourly ${type === 'gs' ? 'Salary' : 'Rate'}</th>
-                <th>Overtime ${type === 'gs' ? 'Salary' : 'Rate'}</th>
+                <th>Hourly ${type === 'leo' ? 'Rate' : 'Salary'}</th>
+                <th>Overtime ${type === 'leo' ? 'Rate' : 'Salary'}</th>
                 <th>Annual Salary</th>
             `;
         }

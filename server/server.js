@@ -67,6 +67,19 @@ app.get('/leo/:state/:grade', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'leo.html'));
 });
 
+// Wildland Firefighter (GW) routes
+app.get('/wildlandstate', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'wildlandstate.html'));
+});
+
+app.get('/wildlandpay/:state', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'wildlandpay.html'));
+});
+
+app.get('/wildland/:state/:grade', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'wildland.html'));
+});
+
 // City routes
 app.get('/:state/:city', (req, res) => {
     const state = decodeURIComponent(req.params.state);

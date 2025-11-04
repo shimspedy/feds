@@ -3,8 +3,8 @@
     "name": "Federal Employee Salary Information",
     "domain": "fedspay.com",
     "baseUrl": "https://fedspay.com",
-    "description": "Comprehensive federal employee salary data including GS grades and LEO pay scales.",
-    "keywords": ["Federal Employee Salaries", "GS Grades", "LEO Pay", "Government Salaries", "Pay Scales"],
+    "description": "Comprehensive federal employee salary data including GS grades, LEO pay scales, and Wildland Firefighter rates.",
+    "keywords": ["Federal Employee Salaries", "GS Grades", "LEO Pay", "Wildland Firefighter Pay", "Government Salaries", "Pay Scales"],
     "lastUpdated": "May 2025",
     "payYear": "2025"
   },
@@ -12,6 +12,7 @@
     "endpoints": {
       "gsData": "/gs-data.json",
       "leoData": "/leo-data.json",
+      "wildlandData": "/wildland-data.json",
       "statePages": "/state_pages.json",
       "stateAbbreviations": "/state_abbreviations.json"
     },
@@ -80,11 +81,19 @@
         "description": "Law Enforcement Officer (LEO) pay scales for federal law enforcement",
         "urlPrefix": "/leo",
         "stateUrlPrefix": "/leopay"
+      },
+      "wildland": {
+        "name": "Wildland Firefighter",
+        "fullName": "Wildland Firefighter",
+        "description": "Wildland Firefighter (GW) pay tables for wildfire response personnel",
+        "urlPrefix": "/wildland",
+        "stateUrlPrefix": "/wildlandpay"
       }
     },
     "tableColumns": {
       "gs": ["Step", "Hourly Salary", "Overtime Salary", "Annual Salary"],
       "leo": ["Step", "Hourly Rate", "Overtime Rate", "Annual Salary"],
+      "wildland": ["Step", "Hourly Salary", "Overtime Salary", "Annual Salary"],
       "overview": ["Grade", "Step 1", "Step 2", "Step 3", "Step 4", "Step 5", "Step 6", "Step 7", "Step 8", "Step 9", "Step 10"]
     }
   },

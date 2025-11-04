@@ -9,6 +9,7 @@ export const CONFIG = {
     API_ENDPOINTS: {
         GS_DATA: '/gs-data.json',
         LEO_DATA: '/leo-data.json',
+        WILDLAND_DATA: '/wildland-data.json',
         STATE_PAGES: '/state_pages.json'
     },
     SELECTORS: {
@@ -17,6 +18,7 @@ export const CONFIG = {
         STATE_TABLE: '#state-table',
         GS_TABLE: '#gs-table',
         LEO_TABLE: '#leo-table',
+        WILDLAND_TABLE: '#wildland-table',
         CITY_TABLE: '#city-table',
         STATES_LIST: '#states-list',
         SEARCH_BAR: '#search-bar',
@@ -159,48 +161,72 @@ export class Utils {
      * @returns {Object} Parsed path information
      */
     static parsePath(pathname = window.location.pathname) {
-        const path = pathname.split('/').filter(Boolean);
-        
-        // Determine the state and grade based on the URL structure
-        let state, grade, city;
-        
-        if (path.includes('state') && path.length >= 2) {
-            // For /state/AU, state is the segment after 'state'
-            const stateIndex = path.indexOf('state');
-            state = path[stateIndex + 1];
-            grade = null;
-            city = path[path.length - 1];
-        } else if (path.includes('gs') && path.length >= 3) {
-            // For /gs/AU/GS1, state is path[1], grade is path[2]
-            state = path[1];
-            grade = path[2] ? decodeURIComponent(path[2]) : null;
-            city = path[path.length - 1];
-        } else if (path.includes('leo') && path.length >= 3) {
-            // For /leo/AU/LEO4, state is path[1], grade is path[2]
-            state = path[1];
-            grade = path[2] ? decodeURIComponent(path[2]) : null;
-            city = path[path.length - 1];
-        } else if (path.includes('leopay')) {
-            // For /leopay/AU, state is path[1]
-            state = path[1];
-            grade = null;
-            city = path[path.length - 1];
+        const segmentsRaw = pathname.split('/').filter(Boolean);
+        const segments = segmentsRaw.map(segment => segment.replace(/\.html$/i, ''));
+
+        let state = null;
+        let grade = null;
+        let city = null;
+        let pageType = null;
+
+        const [first, second, third] = segments;
+
+        if (first === 'state') {
+            pageType = 'state';
+            state = second || null;
+        } else if (first === 'gs') {
+            pageType = 'gsDetail';
+            state = second || null;
+            grade = third ? decodeURIComponent(third) : null;
+        } else if (first === 'leopay') {
+            pageType = 'leopay';
+            state = second || null;
+        } else if (first === 'leo') {
+            pageType = 'leoDetail';
+            state = second || null;
+            grade = third ? decodeURIComponent(third) : null;
+        } else if (first === 'wildlandpay') {
+            pageType = 'wildlandpay';
+            state = second || null;
+        } else if (first === 'wildland') {
+            pageType = 'wildlandDetail';
+            state = second || null;
+            grade = third ? decodeURIComponent(third) : null;
+        } else if (first === 'leostate') {
+            pageType = 'leostate';
+        } else if (first === 'wildlandstate') {
+            pageType = 'wildlandstate';
+        } else if (first === 'states') {
+            pageType = 'states';
+        } else if (segments.length === 2) {
+            // City routes like /AK/Anchorage
+            pageType = 'city';
+            state = segments[0];
+            city = segments[1];
+        } else if (segments.length === 0) {
+            pageType = 'home';
         } else {
-            // Default fallback for other routes
-            state = path[path.length - 1];
-            grade = null;
-            city = path[path.length - 1];
+            pageType = first || 'unknown';
         }
-        
+
+        if (!city && state && pageType !== 'city' && segments.length > 1) {
+            city = segments[segments.length - 1];
+        }
+
         return {
-            segments: path,
-            state: state,
-            city: city,
-            grade: grade,
-            isGsPage: path.includes('gs'),
-            isLeoPage: path.includes('leo'),
-            isStatePage: path.includes('state'),
-            isLeopayPage: path.includes('leopay')
+            segments: segmentsRaw,
+            normalizedSegments: segments,
+            state,
+            city,
+            grade,
+            pageType,
+            isGsPage: pageType === 'gsDetail',
+            isLeoPage: pageType === 'leoDetail',
+            isStatePage: pageType === 'state',
+            isLeopayPage: pageType === 'leopay',
+            isWildlandPage: pageType === 'wildlandDetail',
+            isWildlandPayPage: pageType === 'wildlandpay',
+            isWildlandListPage: pageType === 'wildlandstate'
         };
     }
 
@@ -335,8 +361,16 @@ export class SEOUtils {
      * @returns {Object} Structured data object
      */
     static generateStructuredData(data, type = 'gs') {
-        const serviceType = type === 'gs' ? 'Federal Employee Compensation' : 'Law Enforcement Officer Compensation';
-        const serviceName = type === 'gs' ? 'General Schedule Pay Scales' : 'Law Enforcement Officer Pay Scales';
+        let serviceType = 'Federal Employee Compensation';
+        let serviceName = 'General Schedule Pay Scales';
+
+        if (type === 'leo') {
+            serviceType = 'Law Enforcement Officer Compensation';
+            serviceName = 'Law Enforcement Officer Pay Scales';
+        } else if (type === 'wildland') {
+            serviceType = 'Wildland Firefighter Compensation';
+            serviceName = 'Wildland Firefighter Pay Tables';
+        }
 
         return {
             "@context": "https://schema.org",
@@ -410,6 +444,14 @@ export class DataUtils {
     }
 
     /**
+     * Fetch Wildland Firefighter data
+     * @returns {Promise} Wildland data
+     */
+    static fetchWildlandData() {
+        return this.fetchData(CONFIG.API_ENDPOINTS.WILDLAND_DATA);
+    }
+
+    /**
      * Fetch state pages data
      * @returns {Promise} State pages data
      */
@@ -440,13 +482,13 @@ export class DOMUtils {
     /**
      * Create table row for salary data
      * @param {Object} data - Row data
-     * @param {string} type - Type of data ('gs' or 'leo')
+     * @param {string} type - Type of data ('gs', 'leo', or 'wildland')
      * @returns {HTMLElement} Table row element
      */
     static createSalaryRow(data, type = 'gs') {
         const row = document.createElement('tr');
         
-        if (type === 'gs') {
+        if (type === 'gs' || type === 'wildland') {
             row.innerHTML = `
                 <td>Step ${data.step}</td>
                 <td>${Utils.formatCurrency(data.hourly_salary)}</td>
@@ -470,7 +512,7 @@ export class DOMUtils {
      * @param {string} grade - Grade name
      * @param {Array} gradeData - Grade data array
      * @param {string} state - State abbreviation
-     * @param {string} type - Type ('gs' or 'leo')
+     * @param {string} type - Type ('gs', 'leo', or 'wildland')
      * @returns {HTMLElement} Table row element
      */
     static createGradeRow(grade, gradeData, state, type = 'gs') {
@@ -490,7 +532,7 @@ export class DOMUtils {
      * Populate table with data
      * @param {HTMLElement} tableBody - Table body element
      * @param {Object} data - Data to populate
-     * @param {string} type - Type of data ('gs' or 'leo')
+     * @param {string} type - Type of data ('gs', 'leo', or 'wildland')
      * @param {string} mode - Mode ('detail' for individual steps, 'overview' for grades)
      * @param {string} state - State abbreviation (for overview mode)
      */
@@ -534,7 +576,7 @@ export class StateListUtils {
      * @param {HTMLElement} container - Container element
      * @param {Array} states - Array of state codes
      * @param {string} baseUrl - Base URL for links
-     * @param {string} linkType - Type of link ('state', 'leopay')
+     * @param {string} linkType - Type of link ('state', 'leopay', 'wildland')
      */
     static displayStates(container, states, baseUrl = '/state', linkType = 'state') {
         if (!container) return;
@@ -572,11 +614,15 @@ export class StateListUtils {
                 // Handle DIV containers (like states-grid)
                 const stateDiv = document.createElement('div');
                 stateDiv.classList.add('state-item');
+                if (linkType) {
+                    stateDiv.classList.add(`state-item-${linkType}`);
+                }
                 stateDiv.setAttribute('role', 'listitem');
                 stateDiv.innerHTML = `
                     <a href="${linkUrl}" class="state-card">
                         <div class="state-name">${fullName}</div>
                         <div class="state-code">${state}</div>
+                        ${linkType === 'wildland' ? '<span class="state-tag state-tag-wildland">Wildland Firefighter Pay</span>' : ''}
                     </a>
                 `;
                 container.appendChild(stateDiv);

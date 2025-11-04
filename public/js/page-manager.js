@@ -292,6 +292,108 @@ export class LEODetailPage extends BasePage {
 }
 
 /**
+ * Wildland pay page manager for displaying GW grades by state
+ */
+export class WildlandPayPage extends BasePage {
+    async setupPage() {
+        const { state } = this.pathInfo;
+        const stateNameElement = document.querySelector(CONFIG.SELECTORS.STATE_NAME);
+        const tableBody = document.querySelector(`${CONFIG.SELECTORS.STATE_TABLE} tbody`);
+
+        if (stateNameElement) {
+            stateNameElement.classList.add(CONFIG.CSS_CLASSES.STATE_ABBR);
+            stateNameElement.textContent = state;
+        }
+
+        Utils.showLoading(tableBody);
+
+        try {
+            const data = await DataUtils.fetchWildlandData();
+            const stateData = data[state];
+
+            if (stateData && tableBody) {
+                DOMUtils.populateTable(tableBody, stateData, 'wildland', 'overview', state);
+            } else if (tableBody) {
+                Utils.handleError(new Error('No data available for this locality'), 'data fetch', tableBody);
+            }
+
+            this.updateStateNames(state);
+            this.updatePageSEO(state);
+        } catch (error) {
+            Utils.handleError(error, 'Wildland data fetch', tableBody);
+        }
+    }
+
+    updateStateNames(state) {
+        DOMUtils.replaceStateAbbreviations();
+    }
+
+    updatePageSEO(state) {
+        const fullName = STATE_MAP[state] || state;
+        const title = `Wildland Firefighter Pay in ${fullName}`;
+        const description = `${title} - Review 2025 Wildland Firefighter (GW) salary tables including hourly, overtime, and annual pay for each step.`;
+        const canonicalUrl = `${CONFIG.BASE_URL}/wildlandpay/${state}`;
+
+        this.updateSEO(title, description, canonicalUrl);
+
+        const structuredData = SEOUtils.generateStructuredData({}, 'wildland');
+        SEOUtils.updateStructuredData(structuredData);
+    }
+}
+
+/**
+ * Wildland detail page manager for individual grade details
+ */
+export class WildlandDetailPage extends BasePage {
+    async setupPage() {
+        const { state, grade } = this.pathInfo;
+
+        const stateNameElement = document.querySelector(CONFIG.SELECTORS.STATE_NAME);
+        const tableBody = document.querySelector(`${CONFIG.SELECTORS.WILDLAND_TABLE} tbody`);
+
+        if (stateNameElement) {
+            stateNameElement.classList.add(CONFIG.CSS_CLASSES.STATE_ABBR);
+            stateNameElement.textContent = state;
+        }
+
+        Utils.showLoading(tableBody, 4);
+
+        try {
+            const data = await DataUtils.fetchWildlandData();
+            const stateData = data[state];
+
+            if (stateData && stateData[grade] && tableBody) {
+                const gradeData = stateData[grade];
+                DOMUtils.populateTable(tableBody, gradeData, 'wildland', 'detail');
+            } else if (tableBody) {
+                Utils.handleError(new Error(`No data available for ${grade} in ${state}`), 'data fetch', tableBody);
+            }
+
+            this.updateStateNames();
+            this.updatePageSEO(state, grade);
+        } catch (error) {
+            Utils.handleError(error, 'Wildland detail data fetch', tableBody);
+        }
+    }
+
+    updateStateNames() {
+        DOMUtils.replaceStateAbbreviations();
+    }
+
+    updatePageSEO(state, grade) {
+        const fullName = STATE_MAP[state] || state;
+        const title = `${grade} Wildland Firefighter Pay in ${fullName}`;
+        const description = `${title} - Detailed Wildland Firefighter salary steps with hourly, overtime, and annual compensation for 2025.`;
+        const canonicalUrl = `${CONFIG.BASE_URL}/wildland/${state}/${encodeURIComponent(grade)}`;
+
+        this.updateSEO(title, description, canonicalUrl);
+
+        const structuredData = SEOUtils.generateStructuredData({}, 'wildland');
+        SEOUtils.updateStructuredData(structuredData);
+    }
+}
+
+/**
  * States list page manager
  */
 export class StatesListPage extends BasePage {
@@ -358,6 +460,41 @@ export class LeoStatesListPage extends BasePage {
 }
 
 /**
+ * Wildland Firefighter states list page manager
+ */
+export class WildlandStatesListPage extends BasePage {
+    async setupPage() {
+        const statesContainer = document.querySelector('#states-grid') || document.querySelector(CONFIG.SELECTORS.STATES_LIST);
+        const searchBar = document.querySelector(CONFIG.SELECTORS.SEARCH_BAR);
+
+        const loadingIndicator = document.getElementById('loading-indicator');
+        if (loadingIndicator) {
+            loadingIndicator.remove();
+        }
+
+        try {
+            const data = await DataUtils.fetchWildlandData();
+            const availableStates = Object.keys(data).filter(state => STATE_MAP[state] || US_STATES_MAP[state]);
+
+            if (statesContainer) {
+                StateListUtils.displayStates(statesContainer, availableStates, '/wildlandpay', 'wildland');
+                StateListUtils.setupSearch(searchBar, statesContainer, availableStates, '/wildlandpay', 'wildland');
+            } else {
+                const tbody = document.querySelector('tbody');
+                if (tbody) {
+                    tbody.innerHTML = '<tr><td colspan="2">Error: Container not found</td></tr>';
+                }
+            }
+        } catch (error) {
+            if (statesContainer) {
+                statesContainer.innerHTML = '<tr><td colspan="2">Error loading Wildland Firefighter data</td></tr>';
+            }
+            Utils.handleError(error, 'Wildland states list setup');
+        }
+    }
+}
+
+/**
  * City page manager
  */
 export class CityPage extends BasePage {
@@ -400,29 +537,47 @@ export class PageFactory {
      */
     static createPage() {
         const pathInfo = Utils.parsePath();
-        const pathname = window.location.pathname;
-        
-        if (pathInfo.isGsPage && pathInfo.segments.length >= 3) {
-            return new GSDetailPage();
-        } else if (pathInfo.isLeoPage && pathInfo.segments.length >= 3) {
-            return new LEODetailPage();
-        } else if (pathInfo.isStatePage) {
-            return new StatePage();
-        } else if (pathInfo.isLeopayPage) {
-            return new LeoPayPage();
-        } else if (pathInfo.segments.some(segment => segment.includes('leostate')) || pathname.includes('leostate')) {
-            return new LeoStatesListPage();
-        } else if (pathInfo.segments.some(segment => segment.includes('states')) || pathname.includes('states')) {
-            return new StatesListPage();
-        } else if (pathInfo.segments.length >= 2) {
-            return new CityPage();
-        } else if (pathname === '/' || pathname === '/index.html') {
-            // Home page - uses states list but with table format
-            return new StatesListPage();
+        const {
+            pageType = 'home',
+            segments = [],
+            normalizedSegments = []
+        } = pathInfo;
+
+        switch (pageType) {
+            case 'gsDetail':
+                return new GSDetailPage();
+            case 'leoDetail':
+                return new LEODetailPage();
+            case 'wildlandDetail':
+                return new WildlandDetailPage();
+            case 'state':
+                return new StatePage();
+            case 'leopay':
+                return new LeoPayPage();
+            case 'wildlandpay':
+                return new WildlandPayPage();
+            case 'leostate':
+                return new LeoStatesListPage();
+            case 'wildlandstate':
+                return new WildlandStatesListPage();
+            case 'states':
+                return new StatesListPage();
+            case 'city':
+                return new CityPage();
+            case 'home':
+            case 'index':
+                return new StatesListPage();
+            default:
+                if (normalizedSegments[0] === 'states') {
+                    return new StatesListPage();
+                }
+
+                if (segments.length >= 2) {
+                    return new CityPage();
+                }
+
+                return new StatesListPage();
         }
-        
-        // Default fallback
-        return new StatesListPage();
     }
 }
 

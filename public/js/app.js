@@ -281,7 +281,10 @@ function highlightActiveNavLink() {
             (currentPath.includes('/states') && linkPath.includes('/states')) ||
             (currentPath.includes('/leostate') && linkPath.includes('/leostate')) ||
             (currentPath.includes('/state/') && linkPath.includes('/state/')) ||
-            (currentPath.includes('/leopay/') && linkPath.includes('/leopay/'))) {
+            (currentPath.includes('/leopay/') && linkPath.includes('/leopay/')) ||
+            (currentPath.includes('/wildlandstate') && linkPath.includes('/wildlandstate')) ||
+            (currentPath.includes('/wildlandpay/') && linkPath.includes('/wildlandpay/')) ||
+            (currentPath.includes('/wildland/') && linkPath.includes('/wildland/'))) {
             link.classList.add('active');
             link.setAttribute('aria-current', 'page');
         }

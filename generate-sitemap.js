@@ -12,6 +12,10 @@ const gsData = JSON.parse(fs.readFileSync(gsDataFilePath, 'utf8'));
 const leoDataFilePath = path.join(__dirname, 'public', 'leo-data.json');
 const leoData = JSON.parse(fs.readFileSync(leoDataFilePath, 'utf8'));
 
+// Load the Wildland Firefighter data
+const wildlandDataFilePath = path.join(__dirname, 'public', 'wildland-data.json');
+const wildlandData = JSON.parse(fs.readFileSync(wildlandDataFilePath, 'utf8'));
+
 // Generate the sitemap
 let sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n`;
 sitemap += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
@@ -43,6 +47,21 @@ for (const state in leoData) {
     for (const grade in leoData[state]) {
         sitemap += `  <url>\n`;
         sitemap += `    <loc>${baseUrl}/leo/${state}/${encodeURIComponent(grade)}</loc>\n`;
+        sitemap += `    <priority>0.6</priority>\n`;
+        sitemap += `  </url>\n`;
+    }
+}
+
+// Add URLs for each state in Wildland Firefighter data
+for (const state in wildlandData) {
+    sitemap += `  <url>\n`;
+    sitemap += `    <loc>${baseUrl}/wildlandpay/${state}</loc>\n`;
+    sitemap += `    <priority>0.8</priority>\n`;
+    sitemap += `  </url>\n`;
+
+    for (const grade in wildlandData[state]) {
+        sitemap += `  <url>\n`;
+        sitemap += `    <loc>${baseUrl}/wildland/${state}/${encodeURIComponent(grade)}</loc>\n`;
         sitemap += `    <priority>0.6</priority>\n`;
         sitemap += `  </url>\n`;
     }
