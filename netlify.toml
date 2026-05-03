@@ -38,10 +38,6 @@
   status = 200
 
 # Bandwidth protection: block abusive crawlers before static assets are served.
-[[edge_functions]]
-function = "block-abusive-bots"
-path = "/*"
-
 # Bandwidth protection: cache image assets aggressively.
 [[headers]]
 for = "/*.jpg"
